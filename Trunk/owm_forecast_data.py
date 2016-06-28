@@ -1,11 +1,16 @@
 #Weather forecast from open weather map
 import urllib.request
+import datetime
 from xml.dom import minidom
+from forecast_db_interface import forecast_db_interface
 
 url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
 
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
+
+db = forecast_db_interface('testdb.db')
+db.create_table("OWM")
 
 raw_forecasts = []
 dated_forecast = {}
@@ -66,8 +71,20 @@ for node in forecast.getElementsByTagName('time'):
             'humidity'      : humidity.getAttribute('value')
         })
 
-for date in dates:
-    print (date)
-    print (dated_forecast[date])
-    
+# for date in dates:
+    # print (date)
+    # print (dated_forecast[date])
+
+counter = 0
+for date in dates: 
+    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'], 
+            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'], 
+            dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
+    db.insert_row("OWM",values)
+    counter = counter + 1
+    if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
+        break
+
+db.commit()
+db.close()
 
