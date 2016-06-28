@@ -9,7 +9,7 @@ url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 tabular_forecast = forecast.getElementsByTagName('tabular')[0]
-db = forecast_db_interface('testdb.db')
+db = forecast_db_interface('WeatherForecast.db')
 db.create_table("YR")
 
 raw_forecasts = []

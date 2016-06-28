@@ -9,7 +9,7 @@ url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 
-db = forecast_db_interface('testdb.db')
+db = forecast_db_interface('WeatherForecast.db')
 db.create_table("OWM")
 
 raw_forecasts = []

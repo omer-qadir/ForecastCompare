@@ -9,7 +9,7 @@ url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
 
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('channel')[0]
-db = forecast_db_interface('testdb.db')
+db = forecast_db_interface('WeatherForecast.db')
 db.create_table("BBC")
 
 raw_forecasts = []
