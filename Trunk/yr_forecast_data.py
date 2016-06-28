@@ -40,31 +40,31 @@ for node in tabular_forecast.getElementsByTagName('time'):
         'humidity'      : ''
     })
     if date in dates:
-		dated_forecast[date].append({
-			'from'          : fromTime,
-			'to'            : toTime,
-			'symbol'        : symbol.getAttribute('name'),
-			'precipitation' : precip.getAttribute('value'),
-			'wind_dir'      : windDir.getAttribute('deg'),
-			'wind_speed'    : windSpeed.getAttribute('mps'),
-			'temperature'   : temp.getAttribute('value'),
-			'pressure'      : pressure.getAttribute('value'),
+        dated_forecast[date].append({
+            'from'          : fromTime,
+            'to'            : toTime,
+            'symbol'        : symbol.getAttribute('name'),
+            'precipitation' : precip.getAttribute('value'),
+            'wind_dir'      : windDir.getAttribute('deg'),
+            'wind_speed'    : windSpeed.getAttribute('mps'),
+            'temperature'   : temp.getAttribute('value'),
+            'pressure'      : pressure.getAttribute('value'),
             'humidity'      : ''
-		})
+        })
     else:
-		dates.append(date)
-        	dated_forecast[date] = []
-		dated_forecast[date].append({
-			'from'          : fromTime,
-			'to'            : toTime,
-			'symbol'        : symbol.getAttribute('name'),
-			'precipitation' : precip.getAttribute('value'),
-			'wind_dir'      : windDir.getAttribute('deg'),
-			'wind_speed'    : windSpeed.getAttribute('mps'),
-			'temperature'   : temp.getAttribute('value'),
-			'pressure'      : pressure.getAttribute('value'),
+        dates.append(date)
+        dated_forecast[date] = []
+        dated_forecast[date].append({
+            'from'          : fromTime,
+            'to'            : toTime,
+            'symbol'        : symbol.getAttribute('name'),
+            'precipitation' : precip.getAttribute('value'),
+            'wind_dir'      : windDir.getAttribute('deg'),
+            'wind_speed'    : windSpeed.getAttribute('mps'),
+            'temperature'   : temp.getAttribute('value'),
+            'pressure'      : pressure.getAttribute('value'),
             'humidity'      : ''
-		})
+        })
 counter = 0
 for date in dates: 
     temp_min = None
@@ -85,5 +85,5 @@ for date in dates:
 
 db.commit()
 db.close()
-	
+    
 

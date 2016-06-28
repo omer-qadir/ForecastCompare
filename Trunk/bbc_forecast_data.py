@@ -87,8 +87,8 @@ for node in forecast.getElementsByTagName('item'):
         'humidity'      : humidity
     })
     if date in dated_forecast.keys():
-		dated_forecast[date].append({
-			'from'          : '',
+        dated_forecast[date].append({
+            'from'          : '',
             'to'            : '',
             'symbol'        : symbol,
             'precipitation' : '',
@@ -99,11 +99,11 @@ for node in forecast.getElementsByTagName('item'):
             'temp_max'      : maxTemp,
             'pressure'      : pressure,
             'humidity'      : humidity
-		})
+        })
     else:
-        	dated_forecast[date] = []
-		dated_forecast[date].append({
-			'from'          : '',
+        dated_forecast[date] = []
+        dated_forecast[date].append({
+            'from'          : '',
             'to'            : '',
             'symbol'        : symbol,
             'precipitation' : '',

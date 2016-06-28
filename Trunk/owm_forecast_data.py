@@ -36,35 +36,35 @@ for node in forecast.getElementsByTagName('time'):
         'humidity'      : humidity.getAttribute('value')
     })
     if date in dates:
-		dated_forecast[date].append({
-			'from'          : '',
-			'to'            : '',
-			'symbol'        : symbol.getAttribute('name'),
-			'precipitation' : precip.getAttribute('value'),
-			'wind_dir'      : windDir.getAttribute('deg'),
-			'wind_speed'    : windSpeed.getAttribute('mps'),
-			'temperature'   : '',
+        dated_forecast[date].append({
+            'from'          : '',
+            'to'            : '',
+            'symbol'        : symbol.getAttribute('name'),
+            'precipitation' : precip.getAttribute('value'),
+            'wind_dir'      : windDir.getAttribute('deg'),
+            'wind_speed'    : windSpeed.getAttribute('mps'),
+            'temperature'   : '',
             'temp_min'      : temp.getAttribute('min'),
             'temp_max'      : temp.getAttribute('max'),
-			'pressure'      : pressure.getAttribute('value'),
+            'pressure'      : pressure.getAttribute('value'),
             'humidity'      : humidity.getAttribute('value')
-		})
+        })
     else:
-		dates.append(date)
-        	dated_forecast[date] = []
-		dated_forecast[date].append({
-			'from'          : '',
-			'to'            : '',
-			'symbol'        : symbol.getAttribute('name'),
-			'precipitation' : precip.getAttribute('value'),
-			'wind_dir'      : windDir.getAttribute('deg'),
-			'wind_speed'    : windSpeed.getAttribute('mps'),
-			'temperature'   : '',
+        dates.append(date)
+        dated_forecast[date] = []
+        dated_forecast[date].append({
+            'from'          : '',
+            'to'            : '',
+            'symbol'        : symbol.getAttribute('name'),
+            'precipitation' : precip.getAttribute('value'),
+            'wind_dir'      : windDir.getAttribute('deg'),
+            'wind_speed'    : windSpeed.getAttribute('mps'),
+            'temperature'   : '',
             'temp_min'      : temp.getAttribute('min'),
             'temp_max'      : temp.getAttribute('max'),
-			'pressure'      : pressure.getAttribute('value'),
+            'pressure'      : pressure.getAttribute('value'),
             'humidity'      : humidity.getAttribute('value')
-		})
+        })
 
 for date in dates:
     print date
