@@ -1,10 +1,10 @@
 #Weather forecast from open weather map
-import urllib
+import urllib.request
 from xml.dom import minidom
 
 url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Trondheim&mode=xml&units=metric&cnt=10'
 
-dom = minidom.parse(urllib.urlopen(url))
+dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 
 raw_forecasts = []

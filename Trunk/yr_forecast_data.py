@@ -1,12 +1,12 @@
 #Weather forecast from yr.no, delivered by the Norwegian Meteorological Institute and the NRK
-import urllib
+import urllib.request
 import datetime
 from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 
 url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast.xml'
 
-dom = minidom.parse(urllib.urlopen(url))
+dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 tabular_forecast = forecast.getElementsByTagName('tabular')[0]
 db = forecast_db_interface('testdb.db')
