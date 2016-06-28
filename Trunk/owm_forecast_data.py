@@ -67,7 +67,7 @@ for node in forecast.getElementsByTagName('time'):
         })
 
 for date in dates:
-    print date
-    print dated_forecast[date]
-	
+    print (date)
+    print (dated_forecast[date])
+    
 
