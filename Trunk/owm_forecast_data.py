@@ -2,7 +2,7 @@
 import urllib.request
 from xml.dom import minidom
 
-url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Trondheim&mode=xml&units=metric&cnt=10'
+url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
 
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
