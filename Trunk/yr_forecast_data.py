@@ -5,6 +5,7 @@ from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 
 url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast.xml'
+# TODO : also parse http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml in addition to the above. hour by hour only gives forecast for next 24 hours, but that is more detailed than above URL.
 
 dom = minidom.parse(urllib.request.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
