@@ -6,6 +6,7 @@ from forecast_db_interface import forecast_db_interface
 # https://github.com/pysimplesoap/pysimplesoap
 from pysimplesoap.client import SoapClient
 
+# http://eklima.met.no/wsKlima/start/start_en.html
 # http://eklima.met.no/metdata/MetDataService?operation=getMetData
 # http://eklima.met.no/eklimapub/servlet/ReportInfo?action=stationinfo&s=68860&la=en&co=US
 # http://sharki.oslo.dnmi.no/eklimapub/servlet/ReportInfo?action=parameterinfo&tab=T_ELEM_OBS&s=68860&la=en&co=US
