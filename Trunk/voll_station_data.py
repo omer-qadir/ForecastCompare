@@ -33,6 +33,18 @@ lutMetElements = {
        ,'DD18'  : 'windDir'        
        ,'NNM'   : 'symbol'         
       }
+lutCloudCover = {
+        0   : 'Clear Sky' 
+       ,1   : 'Mostly Sunny' 
+       ,2   : 'Partly Sunny' 
+       ,3   : 'Cloudy' 
+       ,4   : 'Cloudy'
+       ,5   : 'Mostly Cloudy'
+       ,6   : 'Mostly Overcast'
+       ,7   : 'Fully Overcast'
+       ,-3  : 'Unknown' 
+      }
+
 
 
 client = SoapClient(location="http://eklima.met.no/metdata/MetDataService")
@@ -53,10 +65,24 @@ for node in weatherElement[0].getElementsByTagName('item'):
     print (currentId + "=>" + lutObservedVals[lutMetElements[currentId]])
 
 print (lutObservedVals)
+print (lutObservedVals['symbol'])
+print (float (lutObservedVals['symbol']) )
+print (int(float (lutObservedVals['symbol']) ))
+print (lutCloudCover[int(float (lutObservedVals['symbol']) )])
 
-tupleValues = (datetime.date.today(), datetime.date.today(), lutObservedVals['symbol'], lutObservedVals['windDir'], lutObservedVals['windSpeed'],
-                  lutObservedVals['temp_min'], lutObservedVals['temp_max'], lutObservedVals['pressure'], lutObservedVals['precip'],
-                  lutObservedVals['humidity']
+
+
+tupleValues = (
+                 datetime.date.today()
+                ,datetime.date.today()
+                ,lutCloudCover[int(float (lutObservedVals['symbol']) )]
+                ,lutObservedVals['windDir']
+                ,lutObservedVals['windSpeed']
+                ,lutObservedVals['temp_min']
+                ,lutObservedVals['temp_max']
+                ,lutObservedVals['pressure']
+                ,lutObservedVals['precip']
+                ,lutObservedVals['humidity']
               )
 db.insert_row("VOLL",tupleValues)
 
