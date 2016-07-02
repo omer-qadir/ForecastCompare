@@ -49,23 +49,10 @@ print ("lutObservedVals" + str(lutObservedVals))
 print ("lutMetElements" + str(lutMetElements))
 
 for node in weatherElement[0].getElementsByTagName('item'):
-#    symbol      = []
-#    precip      = []
-#    windDir     = []
-#    windSpeed   = []
-#    temp_max    = []
-#    temp_min    = []
-#    pressure    = []
-#    humidity    = []
-#    # date = node.getAttribute('day')
     currentId   = node.getElementsByTagName('id')[0].firstChild.data
     lutObservedVals[lutMetElements[currentId]] = node.getElementsByTagName('value')[0].firstChild.data
 
     print (currentId + "=>" + lutObservedVals[lutMetElements[currentId]])
-    
-# for date in dates:
-    # print (date)
-    # print (dated_observations[date])
 
 print (lutObservedVals)
 
@@ -75,16 +62,6 @@ tupleValues = (datetime.date.today(), datetime.date.today(), lutObservedVals['sy
               )
 db.insert_row("VOLL",tupleValues)
 
-#counter = 0
-#for date in dates: 
-#    values =(datetime.date.today(), date, dated_observations[date][0]['symbol'], dated_observations[date][0]['wind_dir'], dated_observations[date][0]['wind_speed'], 
-#            dated_observations[date][0]['temp_min'], dated_observations[date][0]['temp_max'], dated_observations[date][0]['pressure'], 
-#            dated_observations[date][0]['precipitation'], dated_observations[date][0]['humidity'])
-#    db.insert_row("OWM",values)
-#    counter = counter + 1
-#    if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
-#        break
-#
 db.commit()
 db.close()
 
