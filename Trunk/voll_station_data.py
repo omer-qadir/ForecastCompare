@@ -42,8 +42,8 @@ response = client._url_to_xml_tree ("http://eklima.met.no/metdata/MetDataService
 
 weatherElement = response.__contains__ ('weatherElement')
 
-#db = forecast_db_interface('WeatherForecast.db')
-#db.create_table("VOLL")
+db = forecast_db_interface('WeatherForecast.db')
+db.create_table("VOLL")
 
 print ("lutObservedVals" + str(lutObservedVals))
 print ("lutMetElements" + str(lutMetElements))
@@ -73,6 +73,8 @@ tupleValues = (datetime.date.today(), datetime.date.today(), lutObservedVals['sy
                   lutObservedVals['temp_min'], lutObservedVals['temp_max'], lutObservedVals['pressure'], lutObservedVals['precip'],
                   lutObservedVals['humidity']
               )
+db.insert_row("VOLL",tupleValues)
+
 #counter = 0
 #for date in dates: 
 #    values =(datetime.date.today(), date, dated_observations[date][0]['symbol'], dated_observations[date][0]['wind_dir'], dated_observations[date][0]['wind_speed'], 
@@ -83,7 +85,7 @@ tupleValues = (datetime.date.today(), datetime.date.today(), lutObservedVals['sy
 #    if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
 #        break
 #
-#db.commit()
-#db.close()
+db.commit()
+db.close()
 
 
