@@ -55,20 +55,20 @@ weatherElement = response.__contains__ ('weatherElement')
 db = forecast_db_interface('WeatherForecast.db')
 db.create_table("VOLL")
 
-print ("lutObservedVals" + str(lutObservedVals))
-print ("lutMetElements" + str(lutMetElements))
+# print ("lutObservedVals" + str(lutObservedVals))
+# print ("lutMetElements" + str(lutMetElements))
 
 for node in weatherElement[0].getElementsByTagName('item'):
     currentId   = node.getElementsByTagName('id')[0].firstChild.data
     lutObservedVals[lutMetElements[currentId]] = node.getElementsByTagName('value')[0].firstChild.data
 
-    print (currentId + "=>" + lutObservedVals[lutMetElements[currentId]])
+    #print (currentId + "=>" + lutObservedVals[lutMetElements[currentId]])
 
-print (lutObservedVals)
-print (lutObservedVals['symbol'])
-print (float (lutObservedVals['symbol']) )
-print (int(float (lutObservedVals['symbol']) ))
-print (lutCloudCover[int(float (lutObservedVals['symbol']) )])
+#print (lutObservedVals)
+#print (lutObservedVals['symbol'])
+#print (float (lutObservedVals['symbol']) )
+#print (int(float (lutObservedVals['symbol']) ))
+#print (lutCloudCover[int(float (lutObservedVals['symbol']) )])
 
 
 
