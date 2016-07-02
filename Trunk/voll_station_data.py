@@ -36,12 +36,12 @@ lutMetElements = {
 lutCloudCover = {
         0   : 'Clear Sky' 
        ,1   : 'Mostly Sunny' 
-       ,2   : 'Partly Sunny' 
+       ,2   : 'Partly Cloudy' 
        ,3   : 'Cloudy' 
-       ,4   : 'Cloudy'
-       ,5   : 'Mostly Cloudy'
-       ,6   : 'Mostly Overcast'
-       ,7   : 'Fully Overcast'
+       ,4   : 'Overcast'
+       ,5   : 'Light rain'
+       ,6   : 'Rain'
+       ,7   : 'Heavy rain'
        ,-3  : 'Unknown' 
       }
 
