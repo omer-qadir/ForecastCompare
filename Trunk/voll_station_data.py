@@ -37,8 +37,6 @@ lutMetElements = {
 
 client = SoapClient(location="http://eklima.met.no/metdata/MetDataService")
 response = client._url_to_xml_tree ("http://eklima.met.no/metdata/MetDataService?invoke=getMetData&timeserietypeID=0&format=&from=&to=&stations=68860&elements=UM%2CPRM%2CRR%2CTAMRR%2CFFM%2CTAN%2CTAX%2CDD18%2CNNM&hours=&months=&username=", False, False)
-#print (response)
-#repr(response)
 
 weatherElement = response.__contains__ ('weatherElement')
 
