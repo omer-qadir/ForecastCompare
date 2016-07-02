@@ -1,7 +1,5 @@
 #Weather forecast from open weather map
-import urllib.request
 import datetime
-from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 # https://github.com/pysimplesoap/pysimplesoap
 from pysimplesoap.client import SoapClient
@@ -11,7 +9,6 @@ from pysimplesoap.client import SoapClient
 # http://eklima.met.no/eklimapub/servlet/ReportInfo?action=stationinfo&s=68860&la=en&co=US
 # http://sharki.oslo.dnmi.no/eklimapub/servlet/ReportInfo?action=parameterinfo&tab=T_ELEM_OBS&s=68860&la=en&co=US
 # http://eklima.met.no/Help/Stations/toDay/all/en_e68860.html
-url = 'http://eklima.met.no/metdata/MetDataService?invoke=getMetData&timeserietypeID=0&format=&from=&to=&stations=68860&elements=UM%2CPRM%2CRR%2CTAMRR%2CFFM%2CTAN%2CTAX%2CDD18%2CNNM&hours=&months=&username='
 client = SoapClient(location="http://eklima.met.no/metdata/MetDataService")
 response = client._url_to_xml_tree ("http://eklima.met.no/metdata/MetDataService?invoke=getMetData&timeserietypeID=0&format=&from=&to=&stations=68860&elements=UM%2CPRM%2CRR%2CTAMRR%2CFFM%2CTAN%2CTAX%2CDD18%2CNNM&hours=&months=&username=", False, False)
 
@@ -19,9 +16,7 @@ response = client._url_to_xml_tree ("http://eklima.met.no/metdata/MetDataService
 #print (response)
 #repr(response)
 
-dom = minidom.parse(response.as_xml())
-weatherElement = dom.getElementsByTagName('weatherElement')
-currentDate = datetime.date.today()
+weatherElement = response.__contains__ ('weatherElement')
 
 #db = forecast_db_interface('WeatherForecast.db')
 #db.create_table("VOLL")
