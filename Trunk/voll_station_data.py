@@ -9,10 +9,34 @@ from pysimplesoap.client import SoapClient
 # http://eklima.met.no/eklimapub/servlet/ReportInfo?action=stationinfo&s=68860&la=en&co=US
 # http://sharki.oslo.dnmi.no/eklimapub/servlet/ReportInfo?action=parameterinfo&tab=T_ELEM_OBS&s=68860&la=en&co=US
 # http://eklima.met.no/Help/Stations/toDay/all/en_e68860.html
+
+# legend for values in XML : http://eklima.met.no/metdata/MetDataService?invoke=getElementsFromTimeserieTypeStation&timeserietypeID=0&stnr=68860
+lutObservedVals = {
+        'humidity'       : [] 
+       ,'pressure'       : [] 
+       ,'precip'         : [] 
+       ,'average_temp'   : [] 
+       ,'windSpeed'      : [] 
+       ,'temp_min'       : [] 
+       ,'temp_max'       : [] 
+       ,'windDir'        : [] 
+       ,'symbol'         : [] 
+      }
+lutMetElements = {
+        'UM'    : 'humidity'       
+       ,'PRM'   : 'pressure'       
+       ,'RR'    : 'precip'         
+       ,'TAMRR' : 'average_temp'   
+       ,'FFM'   : 'windSpeed'      
+       ,'TAN'   : 'temp_min'       
+       ,'TAX'   : 'temp_max'       
+       ,'DD18'  : 'windDir'        
+       ,'NNM'   : 'symbol'         
+      }
+
+
 client = SoapClient(location="http://eklima.met.no/metdata/MetDataService")
 response = client._url_to_xml_tree ("http://eklima.met.no/metdata/MetDataService?invoke=getMetData&timeserietypeID=0&format=&from=&to=&stations=68860&elements=UM%2CPRM%2CRR%2CTAMRR%2CFFM%2CTAN%2CTAX%2CDD18%2CNNM&hours=&months=&username=", False, False)
-
-
 #print (response)
 #repr(response)
 
