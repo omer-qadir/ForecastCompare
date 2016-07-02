@@ -45,72 +45,34 @@ weatherElement = response.__contains__ ('weatherElement')
 #db = forecast_db_interface('WeatherForecast.db')
 #db.create_table("VOLL")
 
-raw_observations = []
-dated_observations = {}
-dates = []
+print ("lutObservedVals" + str(lutObservedVals))
+print ("lutMetElements" + str(lutMetElements))
 
-for node in weatherElement.getElementsByTagName('item'):
-    symbol      = []
-    precip      = []
-    windDir     = []
-    windSpeed   = []
-    temp        = []
-    pressure    = []
-    humidity    = []
-    # date = node.getAttribute('day')
-    currentId   = node.getElementsByTagName('id')
+for node in weatherElement[0].getElementsByTagName('item'):
+#    symbol      = []
+#    precip      = []
+#    windDir     = []
+#    windSpeed   = []
+#    temp_max    = []
+#    temp_min    = []
+#    pressure    = []
+#    humidity    = []
+#    # date = node.getAttribute('day')
+    currentId   = node.getElementsByTagName('id')[0].firstChild.data
+    lutObservedVals[lutMetElements[currentId]] = node.getElementsByTagName('value')[0].firstChild.data
 
-    #print (currentId)
+    print (currentId + "=>" + lutObservedVals[lutMetElements[currentId]])
     
-#    raw_observations.append({
-#        'date'          : date,
-#        'from'          : '',
-#        'to'            : '',
-#        'symbol'        : symbol.getAttribute('name'),
-#        'precipitation' : precip.getAttribute('value'),
-#        'wind_dir'      : windDir.getAttribute('deg'),
-#        'wind_speed'    : windSpeed.getAttribute('mps'),
-#        'temperature'   : '',
-#        'temp_min'      : temp.getAttribute('min'),
-#        'temp_max'      : temp.getAttribute('max'),
-#        'pressure'      : pressure.getAttribute('value'),
-#        'humidity'      : humidity.getAttribute('value')
-#    })
-#    if date in dates:
-#        dated_observations[date].append({
-#            'from'          : '',
-#            'to'            : '',
-#            'symbol'        : symbol.getAttribute('name'),
-#            'precipitation' : precip.getAttribute('value'),
-#            'wind_dir'      : windDir.getAttribute('deg'),
-#            'wind_speed'    : windSpeed.getAttribute('mps'),
-#            'temperature'   : '',
-#            'temp_min'      : temp.getAttribute('min'),
-#            'temp_max'      : temp.getAttribute('max'),
-#            'pressure'      : pressure.getAttribute('value'),
-#            'humidity'      : humidity.getAttribute('value')
-#        })
-#    else:
-#        dates.append(date)
-#        dated_observations[date] = []
-#        dated_observations[date].append({
-#            'from'          : '',
-#            'to'            : '',
-#            'symbol'        : symbol.getAttribute('name'),
-#            'precipitation' : precip.getAttribute('value'),
-#            'wind_dir'      : windDir.getAttribute('deg'),
-#            'wind_speed'    : windSpeed.getAttribute('mps'),
-#            'temperature'   : '',
-#            'temp_min'      : temp.getAttribute('min'),
-#            'temp_max'      : temp.getAttribute('max'),
-#            'pressure'      : pressure.getAttribute('value'),
-#            'humidity'      : humidity.getAttribute('value')
-#        })
-
 # for date in dates:
     # print (date)
     # print (dated_observations[date])
 
+print (lutObservedVals)
+
+tupleValues = (datetime.date.today(), datetime.date.today(), lutObservedVals['symbol'], lutObservedVals['windDir'], lutObservedVals['windSpeed'],
+                  lutObservedVals['temp_min'], lutObservedVals['temp_max'], lutObservedVals['pressure'], lutObservedVals['precip'],
+                  lutObservedVals['humidity']
+              )
 #counter = 0
 #for date in dates: 
 #    values =(datetime.date.today(), date, dated_observations[date][0]['symbol'], dated_observations[date][0]['wind_dir'], dated_observations[date][0]['wind_speed'], 
