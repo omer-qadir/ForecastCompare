@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 #Weather forecast from open weather map
 import urllib.request
 import datetime

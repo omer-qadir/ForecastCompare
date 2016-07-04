@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 #Weather forecast from open weather map
 import datetime
 from forecast_db_interface import forecast_db_interface

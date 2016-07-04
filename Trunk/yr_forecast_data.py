@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 #Weather forecast from yr.no, delivered by the Norwegian Meteorological Institute and the NRK
 import urllib.request
 import datetime

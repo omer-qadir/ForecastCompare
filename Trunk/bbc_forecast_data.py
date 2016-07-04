@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # -*- coding: utf-8 -*-
 #Using weather forecast provided by BBC.
 import urllib.request
