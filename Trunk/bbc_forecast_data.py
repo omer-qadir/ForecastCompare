@@ -1,15 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 # -*- coding: utf-8 -*-
 #Using weather forecast provided by BBC.
-import urllib.request
+import urllib
 import datetime
 from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 
 url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
 
-dom = minidom.parse(urllib.request.urlopen(url))
+dom = minidom.parse(urllib.urlopen(url))
 forecast = dom.getElementsByTagName('channel')[0]
 db = forecast_db_interface('WeatherForecast.db')
 db.create_table("BBC")

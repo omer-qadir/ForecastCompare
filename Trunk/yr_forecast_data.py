@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 #Weather forecast from yr.no, delivered by the Norwegian Meteorological Institute and the NRK
-import urllib.request
+import urllib
 import datetime
 from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
@@ -9,7 +9,7 @@ from forecast_db_interface import forecast_db_interface
 url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast.xml'
 # TODO : also parse http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml in addition to the above. hour by hour only gives forecast for next 24 hours, but that is more detailed than above URL.
 
-dom = minidom.parse(urllib.request.urlopen(url))
+dom = minidom.parse(urllib.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 tabular_forecast = forecast.getElementsByTagName('tabular')[0]
 db = forecast_db_interface('WeatherForecast.db')

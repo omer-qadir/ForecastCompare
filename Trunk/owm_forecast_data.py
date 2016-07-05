@@ -1,14 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 #Weather forecast from open weather map
-import urllib.request
+import urllib
 import datetime
 from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 
 url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
 
-dom = minidom.parse(urllib.request.urlopen(url))
+dom = minidom.parse(urllib.urlopen(url))
 forecast = dom.getElementsByTagName('forecast')[0]
 
 db = forecast_db_interface('WeatherForecast.db')
