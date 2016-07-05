@@ -2,11 +2,11 @@ application: ForecastAccuracy
 version: 1.0a
 runtime: python27
 api_version: 1
-threadsafe: true
+threadsafe: false
 
 handlers:
 - url: /
-  script: bbc_forecast_data.app
+  script: bbc_forecast_data.py
 
 libraries:
 #- name: jinja2
