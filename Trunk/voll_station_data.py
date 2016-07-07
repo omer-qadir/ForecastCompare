@@ -14,37 +14,37 @@ from pysimplesoap.client import SoapClient
 
 # legend for values in XML : http://eklima.met.no/metdata/MetDataService?invoke=getElementsFromTimeserieTypeStation&timeserietypeID=0&stnr=68860
 lutObservedVals = {
-        'humidity'       : [] 
-       ,'pressure'       : [] 
-       ,'precip'         : [] 
-       ,'average_temp'   : [] 
-       ,'windSpeed'      : [] 
-       ,'temp_min'       : [] 
-       ,'temp_max'       : [] 
-       ,'windDir'        : [] 
-       ,'symbol'         : [] 
+        'humidity'       : []
+       ,'pressure'       : []
+       ,'precip'         : []
+       ,'average_temp'   : []
+       ,'windSpeed'      : []
+       ,'temp_min'       : []
+       ,'temp_max'       : []
+       ,'windDir'        : []
+       ,'symbol'         : []
       }
 lutMetElements = {
-        'UM'    : 'humidity'       
-       ,'PRM'   : 'pressure'       
-       ,'RR'    : 'precip'         
-       ,'TAMRR' : 'average_temp'   
-       ,'FFM'   : 'windSpeed'      
-       ,'TAN'   : 'temp_min'       
-       ,'TAX'   : 'temp_max'       
-       ,'DD18'  : 'windDir'        
-       ,'NNM'   : 'symbol'         
+        'UM'    : 'humidity'
+       ,'PRM'   : 'pressure'
+       ,'RR'    : 'precip'
+       ,'TAMRR' : 'average_temp'
+       ,'FFM'   : 'windSpeed'
+       ,'TAN'   : 'temp_min'
+       ,'TAX'   : 'temp_max'
+       ,'DD18'  : 'windDir'
+       ,'NNM'   : 'symbol'
       }
 lutCloudCover = {
-        0   : 'Clear Sky' 
-       ,1   : 'Mostly Sunny' 
-       ,2   : 'Partly Cloudy' 
-       ,3   : 'Cloudy' 
+        0   : 'Clear Sky'
+       ,1   : 'Mostly Sunny'
+       ,2   : 'Partly Cloudy'
+       ,3   : 'Cloudy'
        ,4   : 'Overcast'
        ,5   : 'Light rain'
        ,6   : 'Rain'
        ,7   : 'Heavy rain'
-       ,-3  : 'Unknown' 
+       ,-3  : 'Unknown'
       }
 
 
