@@ -7,6 +7,7 @@ import datetime
 from xml.dom import minidom
 from forecast_db_interface import forecast_db_interface
 
+#url = 'http://tinyurl.com/bbc3dayforecast'
 url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
 
 dom = minidom.parse(urllib.urlopen(url))
@@ -36,7 +37,7 @@ for node in forecast.getElementsByTagName('item'):
     desc        = node.getElementsByTagName('description')[0]
     titleInfo   = title.toxml()[7:97].split(',')
     descInfo    = desc.toxml()[13:238].split(',')
-    
+
     symbol      = titleInfo[0].split(':')[1].lstrip()
     maxIndex = -1
     maxTemp = ''
@@ -49,7 +50,7 @@ for node in forecast.getElementsByTagName('item'):
                 maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:2])
             except ValueError:
                 maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:1])
-    
+
     minIndex = 1+maxIndex
     try:
         minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:3])
@@ -58,15 +59,15 @@ for node in forecast.getElementsByTagName('item'):
             minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:2])
         except ValueError:
             minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:1])
-    
+
     maxTemp = str(maxTemp)
     minTemp = str(minTemp)
-    
+
     windDir     = descInfo[2+maxIndex].split(':')[1].lstrip()
     windSpeed   = "{:.1f}".format(int(descInfo[3+maxIndex].split(':')[1].lstrip().replace('mph','')) * 0.44704)
     pressure    = descInfo[5+maxIndex].split(':')[1].lstrip().replace('mb','')
     humidity    = descInfo[6+maxIndex].split(':')[1].lstrip().replace('%','')
-    
+
     dayGiven = titleInfo[0][0:3]
     if dayGiven == startDay:
         date = dates[0]
@@ -118,9 +119,9 @@ for node in forecast.getElementsByTagName('item'):
             'humidity'      : humidity
 		})
 counter = 0
-for date in dates: 
-    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'], 
-            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'], 
+for date in dates:
+    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
+            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
             dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
     db.insert_row("BBC",values)
     counter = counter + 1
