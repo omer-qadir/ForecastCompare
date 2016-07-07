@@ -27,7 +27,7 @@ for node in forecast.getElementsByTagName('time'):
     pressure    = node.getElementsByTagName('pressure')[0]
     humidity    = node.getElementsByTagName('humidity')[0]
     date = node.getAttribute('day')
-    
+
     raw_forecasts.append({
         'date'          : date,
         'from'          : '',
@@ -78,9 +78,9 @@ for node in forecast.getElementsByTagName('time'):
     # print (dated_forecast[date])
 
 counter = 0
-for date in dates: 
-    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'], 
-            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'], 
+for date in dates:
+    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
+            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
             dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
     db.insert_row("OWM",values)
     counter = counter + 1
