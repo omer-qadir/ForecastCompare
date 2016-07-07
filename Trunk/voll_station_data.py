@@ -70,14 +70,14 @@ for node in weatherElement[0].getElementsByTagName('item'):
 #print (lutObservedVals['symbol'])
 #print (float (lutObservedVals['symbol']) )
 #print (int(float (lutObservedVals['symbol']) ))
-#print (lutCloudCover[int(float (lutObservedVals['symbol']) )])
+#print (lutCloudCover.get(int(float (lutObservedVals['symbol']) )))
 
 
 
 tupleValues = (
                  datetime.date.today()
                 ,datetime.date.today()
-                ,lutCloudCover[int(float (lutObservedVals['symbol']) )]
+                ,lutCloudCover.get(int(float (lutObservedVals['symbol']) ), 'Unknown')
                 ,lutObservedVals['windDir']
                 ,lutObservedVals['windSpeed']
                 ,lutObservedVals['temp_min']
