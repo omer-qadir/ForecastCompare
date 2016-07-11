@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <title>Weather Forecast Accuracy Data</title>
+
+        <link rel="stylesheet" type="text/css" href="static/css/tables.css" />
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Weather Forecast Accuracy Data</a>
+            </div>
+          </div>
+        </nav>
+
+
+        <h2>This website is under construction. Expect an update by end of July...</h2>
+        <h4>The backend code is operational, so the data is being collected and a SQLite DB can be provided upon request</h4>
+<p>
+	<br>
+	Weather prediction is well known to be a difficult task. Regardless, as a <i>consumer</i> of the weather prediction websites, it is very useful to get some measure of which websites are better at consistently getting their prediction right. There are a lot of anecdotal views in circulation, claiming the superiority of one website over another or of local website over foreign websites. The basic concept is simple: Sample the weather prediction for a future date and compare it against the measured value when that date arrives.
+Some of us have cooked up some python scripts in the <a href="https://github.com/omer-qadir/ForecastCompare" target="_blank">ForecastCompare project on GitHub</a> to evaluate the weather prediction accuracy within a very limited set of parameters. Sampling and querying data for all cities is beyond our resource capabilities, so we've set it up to gather the data for Trondheim, Norway. Although this is a somewhat arbitrary choice, the hope is that others will clone the repository and create their own mini-databases for their own cities.
+These predictions are compared against a local weather observation tower.
+Details of problem description are in the <a href="http://eevolved.info/blog.html#WeatherAccuracy" target="_blank">blog</a>
+The data gathered from the websites is shown below, along with the name of the website.
+        <div class="container">
+            <table id="hor-minimalist-b" summary="BBC Data">
+                <caption><a href="http://www.bbc.com/weather" target="_blank">BBC</a></caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Cloud Cover</th>
+                        <th scope="col">Wind Dir</th>
+                        <th scope="col">Wind Speed</th>
+                        <th scope="col">Min Temp</th>
+                        <th scope="col">Max Temp</th>
+                        <th scope="col">Pressure</th>
+                        <th scope="col">Precipitation</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in bbcData %}
+            <!--                    <div class="row"> -->
+                    <tr>
+                        <td>	{{ datum.accesssDate   }} </td>
+                        <td>    {{ datum.forecastDate  }} </td>
+                        <td>    {{ datum.symbol        }} </td>
+                        <td>    {{ datum.windDir 	 }} </td>
+                        <td>    {{ datum.windSpeed    }} </td>
+                        <td>    {{ datum.tempMin      }} </td>
+                        <td>    {{ datum.tempMax      }} </td>
+                        <td>    {{ datum.pressure      }} </td>
+                        <td>    {{ datum.precipitation }} </td>
+                        <td>    {{ datum.humidity      }} </td>
+                    </tr>
+            <!--                    </div> -->
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+
+            <table id="hor-minimalist-b" summary="Yr.no Data">
+                <caption><a href="http://Yr.no" target="_blank">Yr.no</a></caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Cloud Cover</th>
+                        <th scope="col">Wind Dir</th>
+                        <th scope="col">Wind Speed</th>
+                        <th scope="col">Min Temp</th>
+                        <th scope="col">Max Temp</th>
+                        <th scope="col">Pressure</th>
+                        <th scope="col">Precipitation</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in yrData %}
+            <!--                    <div class="row"> -->
+                    <tr>
+                        <td>	{{ datum.accesssDate   }} </td>
+                        <td>    {{ datum.forecastDate  }} </td>
+                        <td>    {{ datum.symbol        }} </td>
+                        <td>    {{ datum.windDir 	 }} </td>
+                        <td>    {{ datum.windSpeed    }} </td>
+                        <td>    {{ datum.tempMin      }} </td>
+                        <td>    {{ datum.tempMax      }} </td>
+                        <td>    {{ datum.pressure      }} </td>
+                        <td>    {{ datum.precipitation }} </td>
+                        <td>    {{ datum.humidity      }} </td>
+                    </tr>
+            <!--                    </div> -->
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <table id="hor-minimalist-b" summary="OWM Data">
+                <caption><a href="http://openweathermap.org" target="_blank">Open Weather Map</a></caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Cloud Cover</th>
+                        <th scope="col">Wind Dir</th>
+                        <th scope="col">Wind Speed</th>
+                        <th scope="col">Min Temp</th>
+                        <th scope="col">Max Temp</th>
+                        <th scope="col">Pressure</th>
+                        <th scope="col">Precipitation</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in owmData %}
+            <!--                    <div class="row"> -->
+                    <tr>
+                        <td>	{{ datum.accesssDate   }} </td>
+                        <td>    {{ datum.forecastDate  }} </td>
+                        <td>    {{ datum.symbol        }} </td>
+                        <td>    {{ datum.windDir 	 }} </td>
+                        <td>    {{ datum.windSpeed    }} </td>
+                        <td>    {{ datum.tempMin      }} </td>
+                        <td>    {{ datum.tempMax      }} </td>
+                        <td>    {{ datum.pressure      }} </td>
+                        <td>    {{ datum.precipitation }} </td>
+                        <td>    {{ datum.humidity      }} </td>
+                    </tr>
+            <!--                    </div> -->
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <table id="hor-minimalist-b" summary="Observed Data">
+                <caption>Observed data</a></caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Cloud Cover</th>
+                        <th scope="col">Wind Dir</th>
+                        <th scope="col">Wind Speed</th>
+                        <th scope="col">Min Temp</th>
+                        <th scope="col">Max Temp</th>
+                        <th scope="col">Pressure</th>
+                        <th scope="col">Precipitation</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in vollData %}
+            <!--                    <div class="row"> -->
+                    <tr>
+                        <td>	{{ datum.accesssDate   }} </td>
+                        <td>    {{ datum.forecastDate  }} </td>
+                        <td>    {{ datum.symbol        }} </td>
+                        <td>    {{ datum.windDir 	 }} </td>
+                        <td>    {{ datum.windSpeed    }} </td>
+                        <td>    {{ datum.tempMin      }} </td>
+                        <td>    {{ datum.tempMax      }} </td>
+                        <td>    {{ datum.pressure      }} </td>
+                        <td>    {{ datum.precipitation }} </td>
+                        <td>    {{ datum.humidity      }} </td>
+                    </tr>
+            <!--                    </div> -->
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+<!--
+            <div class="row">
+                <form action="." method="POST">
+                    <textarea class="form-control" name="contents" placeholder="Enter a comment"></textarea>
+                    <input type="submit" value="Post comment">
+                </form>
+            </div>
+-->
+        </div><!-- /.container -->
