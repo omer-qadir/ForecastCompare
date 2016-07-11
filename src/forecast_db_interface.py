@@ -49,7 +49,7 @@ Base = declarative_base()
 
 class ForecastTable ():
     id = Column('id', Integer, primary_key=True)
-    accesssDate = Column('Access date', Date, default=datetime.datetime.utcnow)
+    accesssDate = Column('Access date', Date, default=datetime.date.today)
     forecastDate = Column('Forecast date', Date)
     symbol = Column('Cloud Cover', Text)
     windDir = Column('Wind direction', Text)
