@@ -1,8 +1,8 @@
 #!/usr/bin/python2.7
-## 
+##
 ## import sqlite3
 ## import os.path
-## 
+##
 ## class forecast_db_interface:
 ##     MAX_DAYS_TO_PREDICT = 3
 ##     def __init__(self, db_name):
@@ -14,25 +14,25 @@
 ##                                      ,db='omer$default'
 ##                                     )
 ##         self.cursor = self.conn.cursor()
-## 
+##
 ##     def create_table(self, table_name):
 ##         #Create table of table_name (forecaster name)
 ##         #forecast_from timestamp, forecast_to timestamp,
-##         self.cursor.execute("CREATE TABLE IF NOT EXISTS " + table_name + '''(access_date date, forecast_date date, symbol text, wind_dir text, 
+##         self.cursor.execute("CREATE TABLE IF NOT EXISTS " + table_name + '''(access_date date, forecast_date date, symbol text, wind_dir text,
 ##                             wind_speed real, temp_min real, temp_max real, pressure real, precipitation real,
 ##                             humidity real)''')
-## 
+##
 ##     def insert_row(self, table_name, values):
 ##         # Insert a row of data
 ##         self.cursor.execute("INSERT INTO " + table_name + " VALUES (?,?,?,?,?,?,?,?,?,?)", values)
-## 
+##
 ##     def commit(self):
 ##         # Save (commit) the changes
 ##         self.conn.commit()
-## 
+##
 ##     def close(self):
 ##         self.conn.close()
-## 
+##
 
 #!/usr/bin/python2.7
 
@@ -43,7 +43,7 @@ import datetime
 from sqlalchemy import create_engine, Column, Float, Integer, Text, Date
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-#from flask_app import db
+from flask_app import db
 
 Base = declarative_base()
 
@@ -67,20 +67,20 @@ def toFloat(stringToConvert):
         return None
 
 
-class BbcTable (ForecastTable, Base):
+class BbcTable (ForecastTable, Base, db.Model):
     __tablename__ = "BBC"
     __table_args__ = {'extend_existing': True}
 
-class OwmTable (ForecastTable, Base):
+class OwmTable (ForecastTable, Base, db.Model):
     __tablename__ = "OWM"
     __table_args__ = {'extend_existing': True}
 
 
-class YrTable (ForecastTable, Base):
+class YrTable (ForecastTable, Base, db.Model):
     __tablename__ = "YR"
     __table_args__ = {'extend_existing': True}
 
-class VollTable (ForecastTable, Base):
+class VollTable (ForecastTable, Base, db.Model):
     __tablename__ = "VOLL"
     __table_args__ = {'extend_existing': True}
 
@@ -129,7 +129,7 @@ class forecast_db_interface ():
 ##         #forecast_from timestamp, forecast_to timestamp,
 ##         forecastTable = db.Table (
 ##         id = db.Column('id', db.Integer, primary_key=True)
-## 
+##
 ##         self.cursor.execute("CREATE TABLE IF NOT EXISTS " + table_name + '''(access_date date, forecast_date date, symbol text, wind_dir text,
 ##                             wind_speed real, temp_min real, temp_max real, pressure real, precipitation real,
 ##                             humidity real)''')
@@ -137,7 +137,7 @@ class forecast_db_interface ():
 ##     def insert_row(self, table_name, values):
 ##         # Insert a row of data
 ##         self.cursor.execute("INSERT INTO " + table_name + " VALUES (?,?,?,?,?,?,?,?,?,?)", values)
-## 
+##
     def commit(self):
         # Save (commit) the changes
         self.session.commit()
