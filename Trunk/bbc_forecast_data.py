@@ -1,53 +1,6 @@
 #!/usr/bin/python2.7
 
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
-#Using weather forecast provided by BBC.
-import urllib
-import datetime
-from xml.dom import minidom
-from forecast_db_interface import forecast_db_interface, BbcTable
-
-#url = 'http://tinyurl.com/bbc3dayforecast'
-url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
-
-dom = minidom.parse(urllib.urlopen(url))
-forecast = dom.getElementsByTagName('channel')[0]
-db = forecast_db_interface()
-db.create_table("BBC")
-
-raw_forecasts = []
-dated_forecast = {}
-
-
-daysOfWeek   = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
-monthsOfYear = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-
-startDateText           = forecast.getElementsByTagName('pubDate')[0].toxml()[9:25]
-startDay,startDateText  = startDateText.split(',')
-startDateText           = startDateText.lstrip()
-dy,mon,yr               = startDateText.split(' ')
-
-dates = []
-dates.append(datetime.date(int(yr),monthsOfYear.index(mon[0:3])+1,int(dy)))
-dates.append(dates[0] + datetime.timedelta(days=1))
-dates.append(dates[1] + datetime.timedelta(days=1))
-
-for node in forecast.getElementsByTagName('item'):
-    title       = node.getElementsByTagName('title')[0]
-    desc        = node.getElementsByTagName('description')[0]
-    titleInfo   = title.toxml()[7:97].split(',')
-    descInfo    = desc.toxml()[13:238].split(',')
-
-    symbol      = titleInfo[0].split(':')[1].lstrip()
-    maxIndex = -1
-    maxTemp = ''
-    if descInfo[0].split(':')[0] == 'Maximum Temperature':
-        maxIndex = 0
-        try:
-            maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:3])
-        except ValueError:
-=======
 def bbc_forecast_data():
     #Using weather forecast provided by BBC.
     import urllib
@@ -91,7 +44,6 @@ def bbc_forecast_data():
         maxTemp = ''
         if descInfo[0].split(':')[0] == 'Maximum Temperature':
             maxIndex = 0
->>>>>>> 47ef29f1d57b8132c09e160bce0b1f3da89f8a25
             try:
                 maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:3])
             except ValueError:
@@ -138,38 +90,6 @@ def bbc_forecast_data():
             'pressure'      : pressure,
             'humidity'      : humidity
         })
-<<<<<<< HEAD
-    else:
-        dated_forecast[date] = []
-        dated_forecast[date].append({
-            'from'          : '',
-            'to'            : '',
-            'symbol'        : symbol,
-            'precipitation' : '',
-            'wind_dir'      : windDir,
-            'wind_speed'    : windSpeed,
-            'temperature'   : '',
-            'temp_min'      : minTemp,
-            'temp_max'      : maxTemp,
-            'pressure'      : pressure,
-            'humidity'      : humidity
-		})
-counter = 0
-for date in dates:
-    values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
-            dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
-            dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
-    newForecast = BbcTable (values)
-    #db.insert_row("BBC",values)
-    db.session.add (newForecast)
-    counter = counter + 1
-    if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
-        break
-
-db.commit()
-db.close()
-
-=======
         if date in dated_forecast.keys():
             dated_forecast[date].append({
                 'from'          : '',
@@ -212,4 +132,3 @@ db.close()
     db.commit()
     db.close()
     
->>>>>>> 47ef29f1d57b8132c09e160bce0b1f3da89f8a25
