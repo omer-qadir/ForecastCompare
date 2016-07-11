@@ -35,8 +35,8 @@ def yr_forecast_data():
     
         raw_forecasts.append({
             'date'          : date,
-            'from'          : fromTime,
-            'to'            : toTime,
+            #'from'          : fromTime,
+            #'to'            : toTime,
             'symbol'        : symbol.getAttribute('name'),
             'precipitation' : precip.getAttribute('value'),
             'wind_dir'      : windDir.getAttribute('deg'),
@@ -47,8 +47,8 @@ def yr_forecast_data():
         })
         if date in dates:
             dated_forecast[date].append({
-                'from'          : fromTime,
-                'to'            : toTime,
+                #'from'          : fromTime,
+                #'to'            : toTime,
                 'symbol'        : symbol.getAttribute('name'),
                 'precipitation' : precip.getAttribute('value'),
                 'wind_dir'      : windDir.getAttribute('deg'),
@@ -61,8 +61,8 @@ def yr_forecast_data():
             dates.append(date)
             dated_forecast[date] = []
             dated_forecast[date].append({
-                'from'          : fromTime,
-                'to'            : toTime,
+                #'from'          : fromTime,
+                #'to'            : toTime,
                 'symbol'        : symbol.getAttribute('name'),
                 'precipitation' : precip.getAttribute('value'),
                 'wind_dir'      : windDir.getAttribute('deg'),

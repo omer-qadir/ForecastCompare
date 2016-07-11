@@ -79,13 +79,13 @@ def bbc_forecast_data():
             date = dates[2]
         raw_forecasts.append({
             'date'          : date,
-            'from'          : '',
-            'to'            : '',
+            #'from'          : '',
+            #'to'            : '',
             'symbol'        : symbol,
             'precipitation' : '',
             'wind_dir'      : windDir,
             'wind_speed'    : windSpeed,
-            'temperature'   : '',
+            #'temperature'   : '',
             'temp_min'      : minTemp,
             'temp_max'      : maxTemp,
             'pressure'      : pressure,
@@ -93,13 +93,13 @@ def bbc_forecast_data():
         })
         if date in dated_forecast.keys():
             dated_forecast[date].append({
-                'from'          : '',
-                'to'            : '',
+                #'from'          : '',
+                #'to'            : '',
                 'symbol'        : symbol,
                 'precipitation' : '',
                 'wind_dir'      : windDir,
                 'wind_speed'    : windSpeed,
-                'temperature'   : '',
+                #'temperature'   : '',
                 'temp_min'      : minTemp,
                 'temp_max'      : maxTemp,
                 'pressure'      : pressure,
@@ -108,13 +108,13 @@ def bbc_forecast_data():
         else:
             dated_forecast[date] = []
             dated_forecast[date].append({
-                'from'          : '',
-                'to'            : '',
+                #'from'          : '',
+                #'to'            : '',
                 'symbol'        : symbol,
                 'precipitation' : '',
                 'wind_dir'      : windDir,
                 'wind_speed'    : windSpeed,
-                'temperature'   : '',
+                #'temperature'   : '',
                 'temp_min'      : minTemp,
                 'temp_max'      : maxTemp,
                 'pressure'      : pressure,

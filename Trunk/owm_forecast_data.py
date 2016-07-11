@@ -34,13 +34,13 @@ def owm_forecast_data():
     
         raw_forecasts.append({
             'date'          : date,
-            'from'          : '',
-            'to'            : '',
+            #'from'          : '',
+            #'to'            : '',
             'symbol'        : symbol.getAttribute('name'),
             'precipitation' : precip.getAttribute('value'),
             'wind_dir'      : windDir.getAttribute('deg'),
             'wind_speed'    : windSpeed.getAttribute('mps'),
-            'temperature'   : '',
+            #'temperature'   : '',
             'temp_min'      : temp.getAttribute('min'),
             'temp_max'      : temp.getAttribute('max'),
             'pressure'      : pressure.getAttribute('value'),
@@ -48,13 +48,13 @@ def owm_forecast_data():
         })
         if date in dates:
             dated_forecast[date].append({
-                'from'          : '',
-                'to'            : '',
+                #'from'          : '',
+                #'to'            : '',
                 'symbol'        : symbol.getAttribute('name'),
                 'precipitation' : precip.getAttribute('value'),
                 'wind_dir'      : windDir.getAttribute('deg'),
                 'wind_speed'    : windSpeed.getAttribute('mps'),
-                'temperature'   : '',
+                #'temperature'   : '',
                 'temp_min'      : temp.getAttribute('min'),
                 'temp_max'      : temp.getAttribute('max'),
                 'pressure'      : pressure.getAttribute('value'),
@@ -64,13 +64,13 @@ def owm_forecast_data():
             dates.append(date)
             dated_forecast[date] = []
             dated_forecast[date].append({
-                'from'          : '',
-                'to'            : '',
+                #'from'          : '',
+                #'to'            : '',
                 'symbol'        : symbol.getAttribute('name'),
                 'precipitation' : precip.getAttribute('value'),
                 'wind_dir'      : windDir.getAttribute('deg'),
                 'wind_speed'    : windSpeed.getAttribute('mps'),
-                'temperature'   : '',
+                #'temperature'   : '',
                 'temp_min'      : temp.getAttribute('min'),
                 'temp_max'      : temp.getAttribute('max'),
                 'pressure'      : pressure.getAttribute('value'),
