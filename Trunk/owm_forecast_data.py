@@ -30,7 +30,7 @@ def owm_forecast_data():
         temp        = node.getElementsByTagName('temperature')[0]
         pressure    = node.getElementsByTagName('pressure')[0]
         humidity    = node.getElementsByTagName('humidity')[0]
-        date = node.getAttribute('day')
+        date        = node.getAttribute('day')
     
         raw_forecasts.append({
             'date'          : date,
