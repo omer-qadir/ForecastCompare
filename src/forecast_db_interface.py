@@ -94,7 +94,7 @@ class forecast_db_interface ():
 #                                                       hostname="omer.mysql.pythonanywhere-services.com",
 #                                                       databasename="omer$default",
 #                                                       )
-    databaseName = "sqlite:///WeatherForecast.db"
+    databaseName = "sqlite:///../WeatherForecast.db"
 
     # Create an engine that stores data in the local directory's
     # ///WeatherForecast.db file.
