@@ -5,14 +5,14 @@
 import urllib
 import datetime
 from xml.dom import minidom
-from forecast_db_interface import forecast_db_interface
+from forecast_db_interface import forecast_db_interface, BbcTable
 
 #url = 'http://tinyurl.com/bbc3dayforecast'
 url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
 
 dom = minidom.parse(urllib.urlopen(url))
 forecast = dom.getElementsByTagName('channel')[0]
-db = forecast_db_interface('WeatherForecast.db')
+db = forecast_db_interface()
 db.create_table("BBC")
 
 raw_forecasts = []
@@ -123,7 +123,9 @@ for date in dates:
     values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
             dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
             dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
-    db.insert_row("BBC",values)
+    newForecast = BbcTable (values)
+    #db.insert_row("BBC",values)
+    db.session.add (newForecast)
     counter = counter + 1
     if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
         break
