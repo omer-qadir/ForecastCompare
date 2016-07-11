@@ -49,16 +49,22 @@ Base = declarative_base()
 
 class ForecastTable ():
     id = Column('id', Integer, primary_key=True)
-    accesssDate = Column('Access date', Date)
+    accesssDate = Column('Access date', Date, default=datetime.datetime.utcnow)
     forecastDate = Column('Forecast date', Date)
     symbol = Column('Cloud Cover', Text)
-    wind_dir = Column('Wind direction', Text)
-    wind_speed = Column('Wind speed', Float)
-    temp_min = Column('Temp min', Float)
-    temp_max = Column('Temp max', Float)
+    windDir = Column('Wind direction', Text)
+    windSpeed = Column('Wind speed', Float)
+    tempMin = Column('Temp min', Float)
+    tempMax = Column('Temp max', Float)
     pressure = Column('Pressure', Float)
     precipitation = Column('Precipitation', Float)
     humidity = Column('Humidity', Float)
+
+def toFloat(stringToConvert):
+    try:
+        return float(stringToConvert)
+    except ValueError:
+        return None
 
 
 class BbcTable (ForecastTable, Base):

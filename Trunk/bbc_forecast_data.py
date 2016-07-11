@@ -6,7 +6,7 @@ def bbc_forecast_data():
     import urllib
     import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface, BbcTable
+    from forecast_db_interface import forecast_db_interface, BbcTable, toFloat
     
     #url = 'http://tinyurl.com/bbc3dayforecast'
     url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
@@ -62,8 +62,8 @@ def bbc_forecast_data():
             except ValueError:
                 minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:1])
     
-        maxTemp = str(maxTemp)
-        minTemp = str(minTemp)
+        #maxTemp = str(maxTemp)
+        #minTemp = str(minTemp)
     
         windDir     = descInfo[2+maxIndex].split(':')[1].lstrip()
         windSpeed   = "{:.1f}".format(int(descInfo[3+maxIndex].split(':')[1].lstrip().replace('mph','')) * 0.44704)
@@ -125,17 +125,19 @@ def bbc_forecast_data():
 ##        values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
 ##                dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
 ##                dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
+        #print (date)
+        #print (type(date))
         newBbcEntry =BbcTable (
-                                 accesssDate=datetime.date.today()
-                                ,forecastDate=date
+                                 #accesssDate=datetime.date.today()
+                                 forecastDate=date
                                 ,symbol=dated_forecast[date][0]['symbol']
-                                ,wind_dir=dated_forecast[date][0]['wind_dir']
-                                ,wind_speed=dated_forecast[date][0]['wind_speed']
-                                ,temp_min=dated_forecast[date][0]['temp_min']
-                                ,temp_max=dated_forecast[date][0]['temp_max']
-                                ,pressure=dated_forecast[date][0]['pressure']
-                                ,precipitation=dated_forecast[date][0]['precipitation']
-                                ,humidity=dated_forecast[date][0]['humidity']
+                                ,windDir=dated_forecast[date][0]['wind_dir']
+                                ,windSpeed=toFloat(dated_forecast[date][0]['wind_speed'])
+                                ,tempMin=toFloat(dated_forecast[date][0]['temp_min'])
+                                ,tempMax=toFloat(dated_forecast[date][0]['temp_max'])
+                                ,pressure=toFloat(dated_forecast[date][0]['pressure'])
+                                ,precipitation=toFloat(dated_forecast[date][0]['precipitation'])
+                                ,humidity=toFloat(dated_forecast[date][0]['humidity'])
                               )
         #db.insert_row("BBC",values)
         db.session.add(newBbcEntry)

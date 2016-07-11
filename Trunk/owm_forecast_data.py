@@ -4,16 +4,18 @@ def owm_forecast_data():
 
     #Weather forecast from open weather map
     import urllib
-    import datetime
+    #import datetime
+    from datetime import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface
+    from forecast_db_interface import forecast_db_interface, OwmTable, toFloat
     
     url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
     
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('forecast')[0]
     
-    db = forecast_db_interface('WeatherForecast.db')
+    #db = forecast_db_interface('WeatherForecast.db')
+    db = forecast_db_interface()
     db.create_table("OWM")
     
     raw_forecasts = []
@@ -81,10 +83,25 @@ def owm_forecast_data():
     
     counter = 0
     for date in dates:
-        values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
-                dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
-                dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
-        db.insert_row("OWM",values)
+##        values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
+##                dated_forecast[date][0]['temp_min'], dated_forecast[date][0]['temp_max'], dated_forecast[date][0]['pressure'],
+##                dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
+        #print (date)
+        #print (type(date))
+        newOwmEntry =OwmTable (
+                                 #accesssDate=datetime.date.today()
+                                 forecastDate=datetime.strptime(date, '%Y-%m-%d').date()
+                                ,symbol=dated_forecast[date][0]['symbol']
+                                ,windDir=dated_forecast[date][0]['wind_dir']
+                                ,windSpeed=toFloat(dated_forecast[date][0]['wind_speed'])
+                                ,tempMin=toFloat(dated_forecast[date][0]['temp_min'])
+                                ,tempMax=toFloat(dated_forecast[date][0]['temp_max'])
+                                ,pressure=toFloat(dated_forecast[date][0]['pressure'])
+                                ,precipitation=toFloat(dated_forecast[date][0]['precipitation'])
+                                ,humidity=toFloat(dated_forecast[date][0]['humidity'])
+                              )
+        #db.insert_row("OWM",values)
+        db.session.add(newOwmEntry)
         counter = counter + 1
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break

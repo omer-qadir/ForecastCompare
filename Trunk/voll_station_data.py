@@ -3,7 +3,8 @@
 def voll_station_data():
     #Weather forecast from open weather map
     import datetime
-    from forecast_db_interface import forecast_db_interface
+    #from datetime import datetime
+    from forecast_db_interface import forecast_db_interface, VollTable, toFloat
     # https://github.com/pysimplesoap/pysimplesoap
     from pysimplesoap.client import SoapClient
     
@@ -56,7 +57,8 @@ def voll_station_data():
     
     weatherElement = response.__contains__ ('weatherElement')
     
-    db = forecast_db_interface('WeatherForecast.db')
+    #db = forecast_db_interface('WeatherForecast.db')
+    db = forecast_db_interface()
     db.create_table("VOLL")
     
     # print ("lutObservedVals" + str(lutObservedVals))
@@ -76,19 +78,21 @@ def voll_station_data():
     
     
     
-    tupleValues = (
-                     datetime.date.today()
-                    ,datetime.date.today()
-                    ,lutCloudCover.get(int(float (lutObservedVals['symbol']) ), 'Unknown')
-                    ,lutObservedVals['windDir']
-                    ,lutObservedVals['windSpeed']
-                    ,lutObservedVals['temp_min']
-                    ,lutObservedVals['temp_max']
-                    ,lutObservedVals['pressure']
-                    ,lutObservedVals['precip']
-                    ,lutObservedVals['humidity']
-                  )
-    db.insert_row("VOLL",tupleValues)
+    newVollEntry =VollTable (
+                             #accesssDate=datetime.date.today()
+                             #forecastDate=datetime.strptime(date, '%Y-%m-%d').date()
+                             forecastDate=datetime.date.today()
+                            ,symbol= lutCloudCover.get(int(float (lutObservedVals['symbol']) ), 'Unknown')
+                            ,windDir= lutObservedVals['windDir']
+                            ,windSpeed=toFloat(lutObservedVals['windSpeed'])
+                            ,tempMin=toFloat(lutObservedVals['temp_min'])
+                            ,tempMax=toFloat(lutObservedVals['temp_max'])
+                            ,pressure=toFloat(lutObservedVals['pressure'])
+                            ,precipitation=toFloat(lutObservedVals['precip'])
+                            ,humidity=toFloat(lutObservedVals['humidity'])
+                          )
+    #db.insert_row("VOLL",tupleValues)
+    db.session.add(newVollEntry)
     
     db.commit()
     db.close()
