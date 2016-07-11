@@ -137,7 +137,8 @@ def bbc_forecast_data():
                                 ,precipitation=dated_forecast[date][0]['precipitation']
                                 ,humidity=dated_forecast[date][0]['humidity']
                               )
-        db.insert_row("BBC",values)
+        #db.insert_row("BBC",values)
+        db.session.add(newBbcEntry)
         counter = counter + 1
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
