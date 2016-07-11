@@ -88,13 +88,13 @@ class forecast_db_interface ():
 
     MAX_DAYS_TO_PREDICT = 3
 
-#    databaseName = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-#                                                       username="omer",
-#                                                       password="forecast123",
-#                                                       hostname="omer.mysql.pythonanywhere-services.com",
-#                                                       databasename="omer$default",
-#                                                       )
-    databaseName = "sqlite:///../WeatherForecast.db"
+    databaseName = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+                                                       username="omer",
+                                                       password="forecast123",
+                                                       hostname="omer.mysql.pythonanywhere-services.com",
+                                                       databasename="omer$default",
+                                                       )
+#    databaseName = "sqlite:///../WeatherForecast.db"
 
     # Create an engine that stores data in the local directory's
     # ///WeatherForecast.db file.
