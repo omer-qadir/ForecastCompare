@@ -3,7 +3,8 @@
 # A very simple Flask Hello World app for you to get started with...
 
 from flask import Flask, redirect, render_template, request, url_for
-from flask.ext.sqlalchemy import SQLAlchemy
+#from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy  import SQLAlchemy
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
