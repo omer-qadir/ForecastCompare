@@ -8,20 +8,20 @@ def owm_forecast_data():
     from datetime import datetime
     from xml.dom import minidom
     from forecast_db_interface import forecast_db_interface, OwmTable, toFloat
-    
+
     url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
-    
+
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('forecast')[0]
-    
+
     #db = forecast_db_interface('WeatherForecast.db')
     db = forecast_db_interface()
     db.create_table("OWM")
-    
+
     raw_forecasts = []
     dated_forecast = {}
     dates = []
-    
+
     for node in forecast.getElementsByTagName('time'):
         symbol      = node.getElementsByTagName('symbol')[0]
         precip      = node.getElementsByTagName('precipitation')[0]
@@ -31,7 +31,7 @@ def owm_forecast_data():
         pressure    = node.getElementsByTagName('pressure')[0]
         humidity    = node.getElementsByTagName('humidity')[0]
         date        = node.getAttribute('day')
-    
+
         raw_forecasts.append({
             'date'          : date,
             #'from'          : '',
@@ -76,11 +76,11 @@ def owm_forecast_data():
                 'pressure'      : pressure.getAttribute('value'),
                 'humidity'      : humidity.getAttribute('value')
             })
-    
+
     # for date in dates:
         # print (date)
         # print (dated_forecast[date])
-    
+
     counter = 0
     for date in dates:
 ##        values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
@@ -105,7 +105,9 @@ def owm_forecast_data():
         counter = counter + 1
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
-    
+
     db.commit()
     db.close()
-    
+
+if __name__ == "__main__":
+    owm_forecast_data()

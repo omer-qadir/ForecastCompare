@@ -7,39 +7,39 @@ def bbc_forecast_data():
     import datetime
     from xml.dom import minidom
     from forecast_db_interface import forecast_db_interface, BbcTable, toFloat
-    
+
     #url = 'http://tinyurl.com/bbc3dayforecast'
     url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
-    
+
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('channel')[0]
     #db = forecast_db_interface('WeatherForecast.db')
     db = forecast_db_interface()
     db.create_table("BBC")
-    
+
     raw_forecasts = []
     dated_forecast = {}
-    
-    
+
+
     daysOfWeek   = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     monthsOfYear = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-    
+
     startDateText           = forecast.getElementsByTagName('pubDate')[0].toxml()[9:25]
     startDay,startDateText  = startDateText.split(',')
     startDateText           = startDateText.lstrip()
     dy,mon,yr               = startDateText.split(' ')
-    
+
     dates = []
     dates.append(datetime.date(int(yr),monthsOfYear.index(mon[0:3])+1,int(dy)))
     dates.append(dates[0] + datetime.timedelta(days=1))
     dates.append(dates[1] + datetime.timedelta(days=1))
-    
+
     for node in forecast.getElementsByTagName('item'):
         title       = node.getElementsByTagName('title')[0]
         desc        = node.getElementsByTagName('description')[0]
         titleInfo   = title.toxml()[7:97].split(',')
         descInfo    = desc.toxml()[13:238].split(',')
-    
+
         symbol      = titleInfo[0].split(':')[1].lstrip()
         maxIndex = -1
         maxTemp = ''
@@ -52,7 +52,7 @@ def bbc_forecast_data():
                     maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:2])
                 except ValueError:
                     maxTemp     = int(descInfo[0].split(':')[1].lstrip()[0:1])
-    
+
         minIndex = 1+maxIndex
         try:
             minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:3])
@@ -61,15 +61,15 @@ def bbc_forecast_data():
                 minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:2])
             except ValueError:
                 minTemp     = int(descInfo[minIndex].split(':')[1].lstrip()[0:1])
-    
+
         #maxTemp = str(maxTemp)
         #minTemp = str(minTemp)
-    
+
         windDir     = descInfo[2+maxIndex].split(':')[1].lstrip()
         windSpeed   = "{:.1f}".format(int(descInfo[3+maxIndex].split(':')[1].lstrip().replace('mph','')) * 0.44704)
         pressure    = descInfo[5+maxIndex].split(':')[1].lstrip().replace('mb','')
         humidity    = descInfo[6+maxIndex].split(':')[1].lstrip().replace('%','')
-    
+
         dayGiven = titleInfo[0][0:3]
         if dayGiven == startDay:
             date = dates[0]
@@ -144,7 +144,10 @@ def bbc_forecast_data():
         counter = counter + 1
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
-    
+
     db.commit()
     db.close()
-    
+
+
+if __name__ == "__main__":
+    bbc_forecast_data()

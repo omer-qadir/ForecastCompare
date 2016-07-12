@@ -7,21 +7,21 @@ def yr_forecast_data():
     from datetime import datetime
     from xml.dom import minidom
     from forecast_db_interface import forecast_db_interface, YrTable, toFloat
-    
+
     url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast.xml'
     # TODO : also parse http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml in addition to the above. hour by hour only gives forecast for next 24 hours, but that is more detailed than above URL.
-    
+
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('forecast')[0]
     tabular_forecast = forecast.getElementsByTagName('tabular')[0]
     #db = forecast_db_interface('WeatherForecast.db')
     db = forecast_db_interface()
     db.create_table("YR")
-    
+
     raw_forecasts = []
     dated_forecast = {}
     dates = []
-    
+
     for node in tabular_forecast.getElementsByTagName('time'):
         symbol      = node.getElementsByTagName('symbol')[0]
         precip      = node.getElementsByTagName('precipitation')[0]
@@ -29,10 +29,10 @@ def yr_forecast_data():
         windSpeed   = node.getElementsByTagName('windSpeed')[0]
         temp        = node.getElementsByTagName('temperature')[0]
         pressure    = node.getElementsByTagName('pressure')[0]
-    
+
         date,sep,fromTime = node.getAttribute('from').partition('T')
         toTime   = node.getAttribute('to').partition('T')[2]
-    
+
         raw_forecasts.append({
             'date'          : date,
             #'from'          : fromTime,
@@ -81,7 +81,7 @@ def yr_forecast_data():
                 temp_min = tmp_val
             if temp_max == None or temp_max < tmp_val:
                 temp_max= tmp_val
-    
+
 ##        values =(datetime.date.today(), date, dated_forecast[date][0]['symbol'], dated_forecast[date][0]['wind_dir'], dated_forecast[date][0]['wind_speed'],
 ##                temp_min, temp_max, dated_forecast[date][0]['pressure'], dated_forecast[date][0]['precipitation'], dated_forecast[date][0]['humidity'])
         newYrEntry =YrTable (
@@ -101,8 +101,10 @@ def yr_forecast_data():
         counter = counter + 1
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
-    
+
     db.commit()
     db.close()
-    
-    
+
+
+if __name__ == "__main__":
+    yr_forecast_data()
