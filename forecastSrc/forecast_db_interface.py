@@ -49,13 +49,13 @@ Base = declarative_base()
 
 class ForecastTable ():
     id = Column('id', Integer, primary_key=True)
-    accesssDate = Column('Access date', Date, default=datetime.date.today)
-    forecastDate = Column('Forecast date', Date)
-    symbol = Column('Cloud Cover', Text)
-    windDir = Column('Wind direction', Text)
-    windSpeed = Column('Wind speed', Float)
-    tempMin = Column('Temp min', Float)
-    tempMax = Column('Temp max', Float)
+    accesssDate = Column('AccessDate', Date, default=datetime.date.today)
+    forecastDate = Column('ForecastDate', Date, unique=True)
+    symbol = Column('CloudCover', Text)
+    windDir = Column('WindDirection', Text)
+    windSpeed = Column('WindSpeed', Float)
+    tempMin = Column('TempMin', Float)
+    tempMax = Column('TempMax', Float)
     pressure = Column('Pressure', Float)
     precipitation = Column('Precipitation', Float)
     humidity = Column('Humidity', Float)
@@ -77,11 +77,11 @@ class OwmTable (ForecastTable, Base, db.Model):
 
 
 class YrTable (ForecastTable, Base, db.Model):
-    __tablename__ = "YR"
+    __tablename__ = "Yr"
     __table_args__ = {'extend_existing': True}
 
 class VollTable (ForecastTable, Base, db.Model):
-    __tablename__ = "VOLL"
+    __tablename__ = "Voll"
     __table_args__ = {'extend_existing': True}
 
 class forecast_db_interface ():
@@ -144,5 +144,12 @@ class forecast_db_interface ():
 
     def close(self):
         self.session.close()
+
+
+## SQL Queries
+## ===========
+## select Voll.ForecastDate, Voll.TempMax as Observed, BBC.TempMax as BBC, Yr.TempMax as Yr, OWM.TempMax as 'Open Weather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;
+## select Voll.ForecastDate, Voll.TempMin as Observed, BBC.TempMin as BBC, Yr.TempMin as Yr, OWM.TempMin as 'Open Weather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;
+
 
 
