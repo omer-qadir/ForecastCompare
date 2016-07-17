@@ -149,7 +149,37 @@ class forecast_db_interface ():
 ## SQL Queries
 ## ===========
 ## select Voll.ForecastDate, Voll.TempMax as Observed, BBC.TempMax as BBC, Yr.TempMax as Yr, OWM.TempMax as 'Open Weather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;
+## select Voll.ForecastDate, Voll.TempMax as Observed, BBC.TempMax as BBC, Yr.TempMax as Yr, OWM.TempMax as 'Open Weather' from Voll inner join BBC on Voll.ForecastDate = BBC.ForecastDate inner join Yr on Voll.ForecastDate = Yr.ForecastDate  inner join OWM on Voll.ForecastDate = OWM.ForecastDate;
 ## select Voll.ForecastDate, Voll.TempMin as Observed, BBC.TempMin as BBC, Yr.TempMin as Yr, OWM.TempMin as 'Open Weather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;
+## select * from BBC where ForecastDate = DATE_ADD(AccessDate, interval 1 day);
+## select Voll.TempMax as Observed, BBCsel.TempMax as BBC from (select * from BBC where ForecastDate = DATE_ADD(AccessDate, interval 1 day)) as BBCsel, Voll where Voll.ForecastDate=BBCsel.ForecastDate;
+## select BBCsel.AccessDate, BBCsel.ForecastDate, Voll.TempMax as Observed, BBCsel.TempMax as BBC from (select * from BBC where ForecastDate = DATE_ADD(AccessDate, interval 1 day)) as BBCsel, Voll where Voll.ForecastDate=BBCsel.ForecastDate;
+
+## SQL-Alchemy Queries
+## ===================
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable).join(BbcTable, VollTable.forecastDate == BbcTable.forecastDate)
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable).join(BbcTable, VollTable.forecastDate == BbcTable.forecastDate).join(YrTable, VollTable.forecastDate == YrTable.forecastDate).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable).filter(BbcTable.forecastDate==BbcTable.accessDate+1).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable).join(BbcTable, VollTable.forecastDate == BbcTable.forecastDate).filter(BbcTable.forecastDate==BbcTable.accessDate+1).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable,BbcTable).join(BbcTable, VollTable.forecastDate == BbcTable.forecastDate).filter(BbcTable.forecastDate==BbcTable.accessDate+1).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable).filter(VollTable.forecastDate == BbcTable.forecastDate).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable).filter(VollTable.forecastDate == BbcTable.forecastDate).filter(BbcTable.forecastDate==BbcTable.accessDate+1).all()
+## from forecastSrc.forecast_db_interface import *; dbInterface = forecast_db_interface()
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable,VollTable).filter(BbcTable.forecastDate==BbcTable.accessDate+1).join(VollTable, VollTable.forecastDate == BbcTable.forecastDate).all()
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable,VollTable, YrTable).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1 ) )
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable,YrTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1 ) )
+## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable,VollTable, YrTable, OwmTable).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate))
+## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
+
+
+
+
+
+
+
+
+
 
 
 
