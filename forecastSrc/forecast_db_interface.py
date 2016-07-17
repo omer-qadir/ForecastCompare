@@ -40,25 +40,29 @@
 #import os.path
 import datetime
 #import sqlalchemy
-from sqlalchemy import create_engine, Column, Float, Integer, Text, Date
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, UniqueConstraint, ForeignKeyConstraint, Column, Float, Integer, Text, Date, and_
+#from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from flask_app import db
 
 Base = declarative_base()
 
 class ForecastTable ():
-    id = Column('id', Integer, primary_key=True)
-    accesssDate = Column('AccessDate', Date, default=datetime.date.today)
-    forecastDate = Column('ForecastDate', Date, unique=True)
-    symbol = Column('CloudCover', Text)
-    windDir = Column('WindDirection', Text)
-    windSpeed = Column('WindSpeed', Float)
-    tempMin = Column('TempMin', Float)
-    tempMax = Column('TempMax', Float)
-    pressure = Column('Pressure', Float)
-    precipitation = Column('Precipitation', Float)
-    humidity = Column('Humidity', Float)
+    id = Column('id', type_= Integer, primary_key=True)
+    accessDate = Column('AccessDate', type_= Date, default=datetime.date.today, nullable=False)
+    forecastDate = Column('ForecastDate', type_= Date,  nullable=False)
+    symbol = Column('CloudCover', type_= Text)
+    windDir = Column('WindDirection', type_= Text)
+    windSpeed = Column('WindSpeed', type_= Float)
+    tempMin = Column('TempMin', type_= Float)
+    tempMax = Column('TempMax', type_= Float)
+    pressure = Column('Pressure', type_= Float)
+    precipitation = Column('Precipitation', type_= Float)
+    humidity = Column('Humidity', type_= Float)
+
+    def __repr__(self):
+        return "(id='%s', accessDate='%s', forecastDate='%s, symbol='%s, windDir='%s, windSpeed='%s, tempMin='%s, tempMax='%s, pressure='%s, precipitation='%s, humidity='%s')" % (
+                        self.id, self.accessDate, self.forecastDate, self.symbol, self.windDir, self.windSpeed, self.tempMin, self.tempMax, self.pressure, self.precipitation, self.humidity)
 
 def toFloat(stringToConvert):
     try:
@@ -69,20 +73,37 @@ def toFloat(stringToConvert):
 
 class BbcTable (ForecastTable, Base, db.Model):
     __tablename__ = "BBC"
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
+    #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
+    #__table_args__ = (
+    #                    ForeignKeyConstraint(['AccessDate'], ['Voll.AccessDate']),
+    #                 )
 
 class OwmTable (ForecastTable, Base, db.Model):
     __tablename__ = "OWM"
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
+    #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
+    #__table_args__ = (
+    #                    ForeignKeyConstraint(['AccessDate'], ['Voll.AccessDate']),
+    #                 )
 
 
 class YrTable (ForecastTable, Base, db.Model):
     __tablename__ = "Yr"
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
+    #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
+    #__table_args__ = (
+    #                    ForeignKeyConstraint(['AccessDate'], ['Voll.AccessDate']),
+    #                 )
 
 class VollTable (ForecastTable, Base, db.Model):
     __tablename__ = "Voll"
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
+    #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
+    __table_args__ = (
+                        UniqueConstraint('ForecastDate', name='_uniqueDate'),
+                        UniqueConstraint('AccessDate', name='_uniqueDate'),
+                     )
 
 class forecast_db_interface ():
 
