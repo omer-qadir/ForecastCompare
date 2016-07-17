@@ -6,7 +6,7 @@ def bbc_forecast_data():
     import urllib
     import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface, BbcTable, toFloat
+    from forecast_db_interface import forecast_db_interface, BbcTable, toFloat, db
 
     #url = 'http://tinyurl.com/bbc3dayforecast'
     url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
@@ -14,8 +14,8 @@ def bbc_forecast_data():
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('channel')[0]
     #db = forecast_db_interface('WeatherForecast.db')
-    db = forecast_db_interface()
-    db.create_table("BBC")
+    #db = forecast_db_interface()
+    #db.create_table("BBC")
 
     raw_forecasts = []
     dated_forecast = {}
@@ -145,8 +145,8 @@ def bbc_forecast_data():
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
 
-    db.commit()
-    db.close()
+    db.session.commit()
+    #db.close()
 
 
 if __name__ == "__main__":

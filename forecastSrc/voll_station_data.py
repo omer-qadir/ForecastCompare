@@ -4,7 +4,7 @@ def voll_station_data():
     #Weather forecast from open weather map
     import datetime
     #from datetime import datetime
-    from forecast_db_interface import forecast_db_interface, VollTable, toFloat
+    from forecast_db_interface import forecast_db_interface, VollTable, toFloat, db
     # https://github.com/pysimplesoap/pysimplesoap
     from pysimplesoap.client import SoapClient
 
@@ -58,8 +58,8 @@ def voll_station_data():
     weatherElement = response.__contains__ ('weatherElement')
 
     #db = forecast_db_interface('WeatherForecast.db')
-    db = forecast_db_interface()
-    db.create_table("VOLL")
+    #db = forecast_db_interface()
+    #db.create_table("VOLL")
 
     # print ("lutObservedVals" + str(lutObservedVals))
     # print ("lutMetElements" + str(lutMetElements))
@@ -94,8 +94,8 @@ def voll_station_data():
     #db.insert_row("VOLL",tupleValues)
     db.session.add(newVollEntry)
 
-    db.commit()
-    db.close()
+    db.session.commit()
+    #db.close()
 
 
 if __name__ == "__main__":

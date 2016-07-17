@@ -6,7 +6,7 @@ def yr_forecast_data():
     #import datetime
     from datetime import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface, YrTable, toFloat
+    from forecast_db_interface import forecast_db_interface, YrTable, toFloat, db
 
     url = 'http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast.xml'
     # TODO : also parse http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml in addition to the above. hour by hour only gives forecast for next 24 hours, but that is more detailed than above URL.
@@ -15,8 +15,8 @@ def yr_forecast_data():
     forecast = dom.getElementsByTagName('forecast')[0]
     tabular_forecast = forecast.getElementsByTagName('tabular')[0]
     #db = forecast_db_interface('WeatherForecast.db')
-    db = forecast_db_interface()
-    db.create_table("YR")
+    ##db = forecast_db_interface()
+    ##db.create_table("YR")
 
     raw_forecasts = []
     dated_forecast = {}
@@ -102,8 +102,8 @@ def yr_forecast_data():
         if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
             break
 
-    db.commit()
-    db.close()
+    db.session.commit()
+    #db.close()
 
 
 if __name__ == "__main__":

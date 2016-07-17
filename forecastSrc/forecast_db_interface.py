@@ -109,43 +109,44 @@ class forecast_db_interface ():
 
     MAX_DAYS_TO_PREDICT = 3
 
-    databaseName = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-                                                       username="omer",
-                                                       password="forecast123",
-                                                       hostname="omer.mysql.pythonanywhere-services.com",
-                                                       databasename="omer$default",
-                                                       )
+#    databaseName = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+#                                                       username="omer",
+#                                                       password="forecast123",
+#                                                       hostname="omer.mysql.pythonanywhere-services.com",
+#                                                       databasename="omer$default",
+#                                                       )
 #    databaseName = "sqlite:///../WeatherForecast.db"
 
     # Create an engine that stores data in the local directory's
     # ///WeatherForecast.db file.
-    engine = create_engine(databaseName)
+    #engine = create_engine(databaseName)
 
-    def __init__(self):
-        #self.conn = sqlite3.connect(db_name)
-        #self.cursor = self.conn.cursor()
+#    def __init__(self):
+#        #self.conn = sqlite3.connect(db_name)
+#        #self.cursor = self.conn.cursor()
+#
+#        # Bind the engine to the metadata of the Base class so that the
+#        # declaratives can be accessed through a DBSession instance
+#        Base.metadata.bind = self.engine
+#        DBSession = sessionmaker(bind=self.engine)
+#        # A DBSession() instance establishes all conversations with the database
+#        # and represents a "staging zone" for all the objects loaded into the
+#        # database session object. Any change made against the objects in the
+#        # session won't be persisted into the database until you call
+#        # session.commit(). If you're not happy about the changes, you can
+#        # revert all of them back to the last commit by calling
+#        # session.rollback()
+#        self.session = DBSession()
 
-        # Bind the engine to the metadata of the Base class so that the
-        # declaratives can be accessed through a DBSession instance
-        Base.metadata.bind = self.engine
-        DBSession = sessionmaker(bind=self.engine)
-        # A DBSession() instance establishes all conversations with the database
-        # and represents a "staging zone" for all the objects loaded into the
-        # database session object. Any change made against the objects in the
-        # session won't be persisted into the database until you call
-        # session.commit(). If you're not happy about the changes, you can
-        # revert all of them back to the last commit by calling
-        # session.rollback()
-        self.session = DBSession()
-
-    def createTables (self):
-        # Create all tables in the engine. This is equivalent to "Create Table"
-        # statements in raw SQL.
-        Base.metadata.create_all(self.engine)
+#    def createTables (self):
+#        # Create all tables in the engine. This is equivalent to "Create Table"
+#        # statements in raw SQL.
+#        Base.metadata.create_all(self.engine)
 
 
     def create_table(self, table_name):
-        self.createTables()
+        pass
+#        self.createTables()
 ##         #Create table of table_name (forecaster name)
 ##         #forecast_from timestamp, forecast_to timestamp,
 ##         forecastTable = db.Table (
@@ -161,10 +162,16 @@ class forecast_db_interface ():
 ##
     def commit(self):
         # Save (commit) the changes
-        self.session.commit()
+        db.session.commit()
 
     def close(self):
-        self.session.close()
+        db.session.close()
+
+    def dayAwayTable(self, numDays=1):
+        ##self.engine.execute ("select Voll.ForecastDate, Voll.TempMin as Observed, BBC.TempMin as BBC, Yr.TempMin as Yr, OWM.TempMin as 'OpenWeather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;")
+        ## return db.session.query(VollTable, BbcTable).filter(VollTable.forecastDate == BbcTable.forecastDate).filter(BbcTable.forecastDate==BbcTable.accessDate+1)
+        ## return db.session.query(VollTable, BbcTable, YrTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1 ) )
+        return db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+numDays, YrTable.forecastDate==YrTable.accessDate+numDays, OwmTable.forecastDate==OwmTable.accessDate+numDays ) )
 
 
 ## SQL Queries
