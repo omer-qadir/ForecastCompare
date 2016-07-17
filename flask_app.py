@@ -52,9 +52,20 @@ db = SQLAlchemy(app)
 #@app.route("/", methods=["GET", "POST"])
 @app.route("/")
 def index():
-    from forecastSrc.forecast_db_interface import BbcTable, OwmTable, YrTable, VollTable
+    from forecastSrc.forecast_db_interface import BbcTable, OwmTable, YrTable, VollTable, forecast_db_interface
     if request.method == "GET":
-        return render_template("main_page.html", bbcData=BbcTable.query.all(), owmData=OwmTable.query.all(), yrData=YrTable.query.all(), vollData=VollTable.query.all())
+        dbInterface = forecast_db_interface()
+        renderedRetunVal = render_template  (
+                                    "main_page.html"
+                                    ,bbcData=BbcTable.query.all()
+                                    ,owmData=OwmTable.query.all()
+                                    ,yrData=YrTable.query.all()
+                                    ,vollData=VollTable.query.all()
+                                    ,day1Table=dbInterface.dayAwayTable()
+                                    ,day2Table=dbInterface.dayAwayTable(numDays=2)
+                                )
+        ##dbInterface.close()
+        return renderedRetunVal
 
     #comments.append(request.form["contents"])
     #comment = Comment(content=request.form["contents"])
