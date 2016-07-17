@@ -36,6 +36,113 @@ These predictions are compared against a local weather observation tower.
 Details of problem description are in the <a href="http://eevolved.info/blog.html#WeatherAccuracy" target="_blank">blog</a>
 The data gathered from the websites is shown below, along with the name of the website.
         <div class="container">
+            <table id="hor-minimalist-b" summary="1-day away Min Temp forecast Comparison">
+                <caption>1-day Away Min Temp Forecast Comparison</caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Observed</th>
+                        <th scope="col">BBC</th>
+                        <th scope="col">Yr</th>
+                        <th scope="col">Open Weather</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in day1Table %}
+                    <tr>
+                        <td>    {{ datum.BbcTable.accessDate   }} </td>
+                        <td>    {{ datum.BbcTable.forecastDate }} </td>
+                        <td>	{{ datum.VollTable.tempMin     }} </td>
+                        <td>	{{ datum.BbcTable.tempMin      }} </td>
+                        <td>    {{ datum.YrTable.tempMin       }} </td>
+                        <td>    {{ datum.OwmTable.tempMin      }} </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <table id="hor-minimalist-b" summary="1-day away Max Temp forecast Comparison">
+                <caption>1-day Away Max Temp Forecast Comparison</caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Observed</th>
+                        <th scope="col">BBC</th>
+                        <th scope="col">Yr</th>
+                        <th scope="col">Open Weather</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in day1Table %}
+                    <tr>
+                        <td>    {{ datum.BbcTable.accessDate   }} </td>
+                        <td>    {{ datum.BbcTable.forecastDate }} </td>
+                        <td>	{{ datum.VollTable.tempMax     }} </td>
+                        <td>	{{ datum.BbcTable.tempMax      }} </td>
+                        <td>    {{ datum.YrTable.tempMax       }} </td>
+                        <td>    {{ datum.OwmTable.tempMax      }} </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <table id="hor-minimalist-b" summary="2-day away Min Temp forecast Comparison">
+                <caption>2-day Away Min Temp Forecast Comparison</caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Observed</th>
+                        <th scope="col">BBC</th>
+                        <th scope="col">Yr</th>
+                        <th scope="col">Open Weather</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in day2Table %}
+                    <tr>
+                        <td>    {{ datum.BbcTable.accessDate   }} </td>
+                        <td>    {{ datum.BbcTable.forecastDate }} </td>
+                        <td>	{{ datum.VollTable.tempMin     }} </td>
+                        <td>	{{ datum.BbcTable.tempMin      }} </td>
+                        <td>    {{ datum.YrTable.tempMin       }} </td>
+                        <td>    {{ datum.OwmTable.tempMin      }} </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <table id="hor-minimalist-b" summary="2-day away Max Temp forecast Comparison">
+                <caption>2-day Away Max Temp Forecast Comparison</caption>
+                <thead>
+                	<tr>
+                        <th scope="col">Access Date</th>
+                        <th scope="col">Forecast Date</th>
+                        <th scope="col">Observed</th>
+                        <th scope="col">BBC</th>
+                        <th scope="col">Yr</th>
+                        <th scope="col">Open Weather</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datum in day2Table %}
+                    <tr>
+                        <td>    {{ datum.BbcTable.accessDate   }} </td>
+                        <td>    {{ datum.BbcTable.forecastDate }} </td>
+                        <td>	{{ datum.VollTable.tempMax     }} </td>
+                        <td>	{{ datum.BbcTable.tempMax      }} </td>
+                        <td>    {{ datum.YrTable.tempMax       }} </td>
+                        <td>    {{ datum.OwmTable.tempMax      }} </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
             <table id="hor-minimalist-b" summary="BBC Data">
                 <caption><a href="http://www.bbc.com/weather" target="_blank">BBC</a></caption>
                 <thead>
