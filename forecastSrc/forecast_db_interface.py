@@ -5,10 +5,10 @@ from sqlalchemy import UniqueConstraint, Column, Float, Integer, Text, Date, and
 #from sqlalchemy import create_engine
 #from sqlalchemy import ForeignKeyConstraint
 #from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.ext.declarative import declarative_base
 from flask_app import db
 
-Base = declarative_base()
+#Base = declarative_base()
 
 class ForecastTable ():
     id = Column('id', type_= Integer, primary_key=True)
@@ -34,7 +34,7 @@ def toFloat(stringToConvert):
         return None
 
 
-class BbcTable (ForecastTable, Base, db.Model):
+class BbcTable (ForecastTable, db.Model):
     __tablename__ = "BBC"
     #__table_args__ = {'extend_existing': True}
     #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
@@ -42,7 +42,7 @@ class BbcTable (ForecastTable, Base, db.Model):
     #                    ForeignKeyConstraint(['AccessDate'], ['Voll.AccessDate']),
     #                 )
 
-class OwmTable (ForecastTable, Base, db.Model):
+class OwmTable (ForecastTable, db.Model):
     __tablename__ = "OWM"
     #__table_args__ = {'extend_existing': True}
     #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
@@ -51,7 +51,7 @@ class OwmTable (ForecastTable, Base, db.Model):
     #                 )
 
 
-class YrTable (ForecastTable, Base, db.Model):
+class YrTable (ForecastTable, db.Model):
     __tablename__ = "Yr"
     #__table_args__ = {'extend_existing': True}
     #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
@@ -59,7 +59,7 @@ class YrTable (ForecastTable, Base, db.Model):
     #                    ForeignKeyConstraint(['AccessDate'], ['Voll.AccessDate']),
     #                 )
 
-class VollTable (ForecastTable, Base, db.Model):
+class VollTable (ForecastTable, db.Model):
     __tablename__ = "Voll"
     #__table_args__ = {'extend_existing': True}
     #__table_args__ = (UniqueConstraint('accesssDate', 'forecastDate', name='_uniqueDate'),)
