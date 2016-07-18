@@ -15,3 +15,10 @@ The scripts currently sample the weather predictions from the following:
 <p>
 These predictions are compared against a local weather observation tower. The data and results can be seen at <a href="http://omer.pythonanywhere.com" target="_blank">omer.pythonanywhere.com</a>
 </p>
+
+<h4>ToDo </h4>
+ - Data from Yr.no picks 5 day forecast and parses it for extracting min and max temps. The granularity for extracting min/max temps in this way is too big. Should parse the 24hour forecast (http://www.yr.no/place/Norway/S%C3%B8r-Tr%C3%B8ndelag/Trondheim/Trondheim/forecast_hour_by_hour.xml) in addition. Hour by hour only gives forecast for next 24 hours, but that is more detailed.
+ - Add more data comparison tables to the html page. This should include Cloud cover, precipitation etc.
+ - Move raw data display into its own html page
+ - Why does Voll tower give so many -99999 values
+ - Get key free access to OWM. Currently it must use an appid for a free user, but OWM website states that open-source applications can get key-free access
