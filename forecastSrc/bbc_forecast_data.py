@@ -6,7 +6,7 @@ def bbc_forecast_data():
     import urllib
     import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface, BbcTable, toFloat, db
+    from forecast_db_interface import forecast_db_interface, BbcTable, toFloat
 
     #url = 'http://tinyurl.com/bbc3dayforecast'
     url = 'http://open.live.bbc.co.uk/weather/feeds/en/3133880/3dayforecast.rss'
@@ -139,14 +139,10 @@ def bbc_forecast_data():
                                 ,precipitation=toFloat(dated_forecast[date][0]['precipitation'])
                                 ,humidity=toFloat(dated_forecast[date][0]['humidity'])
                               )
-        #db.insert_row("BBC",values)
-        db.session.add(newBbcEntry)
+        dbIf.insertRow(newTuple=newBbcEntry)
         counter = counter + 1
         if counter >= BbcTable.MAX_DAYS_TO_PREDICT:
             break
-
-    db.session.commit()
-    #db.close()
 
 
 if __name__ == "__main__":

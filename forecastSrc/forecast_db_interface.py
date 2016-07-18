@@ -107,9 +107,12 @@ class forecast_db_interface ():
         ## # session.rollback()
         ## self.session = DBSession()
 
-    ## def insert_row(self, table_name, values):
+    def insertRow(self, newTuple):
     ##   # Insert a row of data
     ##   self.cursor.execute("INSERT INTO " + table_name + " VALUES (?,?,?,?,?,?,?,?,?,?)", values)
+        db.session.add(newTuple)
+        db.session.commit()
+
 
     ## def commit(self):
     ##     # Save (commit) the changes

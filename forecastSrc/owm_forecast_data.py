@@ -7,7 +7,7 @@ def owm_forecast_data():
     #import datetime
     from datetime import datetime
     from xml.dom import minidom
-    from forecast_db_interface import forecast_db_interface, OwmTable, toFloat, db
+    from forecast_db_interface import forecast_db_interface, OwmTable, toFloat
 
     url = 'http://api.openweathermap.org/data/2.5/forecast/daily?id=3133880&mode=xml&units=metric&appid=a3b3c3f0f20a5478a83f61aa4fd98505'
 
@@ -99,14 +99,10 @@ def owm_forecast_data():
                                 ,precipitation=toFloat(dated_forecast[date][0]['precipitation'])
                                 ,humidity=toFloat(dated_forecast[date][0]['humidity'])
                               )
-        #db.insert_row("OWM",values)
-        db.session.add(newOwmEntry)
+        dbIf.insertRow(newTuple=newOwmEntry)
         counter = counter + 1
         if counter >= OwmTable.MAX_DAYS_TO_PREDICT:
             break
-
-    db.session.commit()
-    #db.close()
 
 if __name__ == "__main__":
     owm_forecast_data()
