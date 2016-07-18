@@ -1,43 +1,5 @@
 #!/usr/bin/python2.7
-##
-## import sqlite3
-## import os.path
-##
-## class forecast_db_interface:
-##     MAX_DAYS_TO_PREDICT = 3
-##     def __init__(self, db_name):
-##         self.conn = sqlite3.connect(db_name)
-##         self.conn = MySQLdb.connect (
-##                                       host='omer.mysql.pythonanywhere-services.com'
-##                                      ,user='omer'
-##                                      ,passwd='forecast123'
-##                                      ,db='omer$default'
-##                                     )
-##         self.cursor = self.conn.cursor()
-##
-##     def create_table(self, table_name):
-##         #Create table of table_name (forecaster name)
-##         #forecast_from timestamp, forecast_to timestamp,
-##         self.cursor.execute("CREATE TABLE IF NOT EXISTS " + table_name + '''(access_date date, forecast_date date, symbol text, wind_dir text,
-##                             wind_speed real, temp_min real, temp_max real, pressure real, precipitation real,
-##                             humidity real)''')
-##
-##     def insert_row(self, table_name, values):
-##         # Insert a row of data
-##         self.cursor.execute("INSERT INTO " + table_name + " VALUES (?,?,?,?,?,?,?,?,?,?)", values)
-##
-##     def commit(self):
-##         # Save (commit) the changes
-##         self.conn.commit()
-##
-##     def close(self):
-##         self.conn.close()
-##
 
-#!/usr/bin/python2.7
-
-#import sqlite3
-#import os.path
 import datetime
 #import sqlalchemy
 from sqlalchemy import create_engine, UniqueConstraint, ForeignKeyConstraint, Column, Float, Integer, Text, Date, and_
@@ -199,15 +161,6 @@ class forecast_db_interface ():
 ## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable,VollTable, YrTable, OwmTable).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
 ## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate))
 ## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
-
-
-
-
-
-
-
-
-
 
 
 
