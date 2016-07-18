@@ -13,9 +13,9 @@ def bbc_forecast_data():
 
     dom = minidom.parse(urllib.urlopen(url))
     forecast = dom.getElementsByTagName('channel')[0]
-    #db = forecast_db_interface('WeatherForecast.db')
-    #db = forecast_db_interface()
-    #db.create_table("BBC")
+
+    dbIf = forecast_db_interface()
+    dbIf.createTables()
 
     raw_forecasts = []
     dated_forecast = {}
@@ -142,7 +142,7 @@ def bbc_forecast_data():
         #db.insert_row("BBC",values)
         db.session.add(newBbcEntry)
         counter = counter + 1
-        if counter >= forecast_db_interface.MAX_DAYS_TO_PREDICT:
+        if counter >= BbcTable.MAX_DAYS_TO_PREDICT:
             break
 
     db.session.commit()

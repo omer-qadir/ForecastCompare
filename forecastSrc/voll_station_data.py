@@ -57,9 +57,8 @@ def voll_station_data():
 
     weatherElement = response.__contains__ ('weatherElement')
 
-    #db = forecast_db_interface('WeatherForecast.db')
-    #db = forecast_db_interface()
-    #db.create_table("VOLL")
+    dbIf = forecast_db_interface()
+    dbIf.createTables()
 
     # print ("lutObservedVals" + str(lutObservedVals))
     # print ("lutMetElements" + str(lutMetElements))

@@ -11,6 +11,8 @@ from flask_app import db
 #Base = declarative_base()
 
 class ForecastTable ():
+    MAX_DAYS_TO_PREDICT = 3
+
     id = Column('id', type_= Integer, primary_key=True)
     accessDate = Column('AccessDate', type_= Date, default=datetime.date.today, nullable=False)
     forecastDate = Column('ForecastDate', type_= Date,  nullable=False)
@@ -70,9 +72,7 @@ class VollTable (ForecastTable, db.Model):
 
 class forecast_db_interface ():
 
-    MAX_DAYS_TO_PREDICT = 3
-
-    def createTables():
+    def createTables(self):
         db.create_all()
         db.session.commit()
         # Create table of table_name (forecaster name)
@@ -160,6 +160,6 @@ class forecast_db_interface ():
 ## from forecastSrc.forecast_db_interface import *; db.session.query(BbcTable,VollTable, YrTable, OwmTable).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
 ## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate))
 ## from forecastSrc.forecast_db_interface import *; db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1, OwmTable.forecastDate==OwmTable.accessDate+1 ) )
-
+## from forecastSrc.forecast_db_interface import *; dbIf = forecast_db_interface(); dbIf.createTables()
 
 
