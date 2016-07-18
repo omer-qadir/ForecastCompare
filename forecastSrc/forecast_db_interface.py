@@ -73,55 +73,24 @@ class VollTable (ForecastTable, db.Model):
 class forecast_db_interface ():
 
     def createTables(self):
+        """ Create all tables described in DB """
         db.create_all()
         db.session.commit()
-        # Create table of table_name (forecaster name)
-        ## #forecast_from timestamp, forecast_to timestamp,
-        ## # forecastTable = db.Table (
-        ## # id = db.Column('id', db.Integer, primary_key=True)
-        ##
-        ## self.cursor.execute("CREATE TABLE IF NOT EXISTS " + table_name + '''(access_date date, forecast_date date, symbol text, wind_dir text,
-        ##      wind_speed real, temp_min real, temp_max real, pressure real, precipitation real,
-        ##      humidity real)''')
-
-        # Create an engine that stores data in the local directory's
-        # ///WeatherForecast.db file.
-        #self.engine = create_engine(self.databaseName)
-        #self.conn = sqlite3.connect(db_name)
-        #self.cursor = self.conn.cursor()
-
-        # Bind the engine to the metadata of the Base class so that the
-        # declaratives can be accessed through a DBSession instance
-        #Base.metadata.bind = self.engine
-        # Create all tables in the engine. This is equivalent to "Create Table"
-        # statements in raw SQL.
-        #Base.metadata.create_all(self.engine)
-        #
-        ## DBSession = sessionmaker(bind=self.engine)
-        ## # A DBSession() instance establishes all conversations with the database
-        ## # and represents a "staging zone" for all the objects loaded into the
-        ## # database session object. Any change made against the objects in the
-        ## # session won't be persisted into the database until you call
-        ## # session.commit(). If you're not happy about the changes, you can
-        ## # revert all of them back to the last commit by calling
-        ## # session.rollback()
-        ## self.session = DBSession()
 
     def insertRow(self, newTuple):
-    ##   # Insert a row of data
-    ##   self.cursor.execute("INSERT INTO " + table_name + " VALUES (?,?,?,?,?,?,?,?,?,?)", values)
+        """ Insert a row of data
+        newTuple can be any instance of BbcTable, VollTable, YrTable, OwmTable
+        """
         db.session.add(newTuple)
         db.session.commit()
 
 
-    ## def commit(self):
-    ##     # Save (commit) the changes
-    ##     db.session.commit()
-
-    ## def close(self):
-    ##     db.session.close()
-
     def dayAwayTable(self, numDays=1):
+        """ returns a sql-alchemy Query variable.
+        The query joins the forecast date from each of BbcTable, YrTable, OwmTable
+        to the forecast date of VollTable, and then filters it for <numDays> number
+        of days in the future that the forecast was made.
+        """
         return db.session.query \
             (VollTable, BbcTable, YrTable, OwmTable).filter(
                                                             and_(
