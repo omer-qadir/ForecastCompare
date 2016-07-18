@@ -130,10 +130,20 @@ class forecast_db_interface ():
         db.session.close()
 
     def dayAwayTable(self, numDays=1):
-        ##self.engine.execute ("select Voll.ForecastDate, Voll.TempMin as Observed, BBC.TempMin as BBC, Yr.TempMin as Yr, OWM.TempMin as 'OpenWeather' from Voll left join BBC on Voll.ForecastDate = BBC.ForecastDate left join Yr on Voll.ForecastDate = Yr.ForecastDate  left join OWM on Voll.ForecastDate = OWM.ForecastDate;")
-        ## return db.session.query(VollTable, BbcTable).filter(VollTable.forecastDate == BbcTable.forecastDate).filter(BbcTable.forecastDate==BbcTable.accessDate+1)
-        ## return db.session.query(VollTable, BbcTable, YrTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+1, YrTable.forecastDate==YrTable.accessDate+1 ) )
-        return db.session.query(VollTable, BbcTable, YrTable, OwmTable).filter(and_(VollTable.forecastDate == BbcTable.forecastDate, VollTable.forecastDate==YrTable.forecastDate, VollTable.forecastDate==OwmTable.forecastDate)).filter( and_ (BbcTable.forecastDate==BbcTable.accessDate+numDays, YrTable.forecastDate==YrTable.accessDate+numDays, OwmTable.forecastDate==OwmTable.accessDate+numDays ) )
+        return db.session.query \
+            (VollTable, BbcTable, YrTable, OwmTable).filter(
+                                                            and_(
+                                                                 VollTable.forecastDate == BbcTable.forecastDate
+                                                                ,VollTable.forecastDate==YrTable.forecastDate
+                                                                ,VollTable.forecastDate==OwmTable.forecastDate
+                                                                )
+                                                            ).filter(
+                                                                    and_(
+                                                                         BbcTable.forecastDate==BbcTable.accessDate+numDays
+                                                                        ,YrTable.forecastDate==YrTable.accessDate+numDays
+                                                                        ,OwmTable.forecastDate==OwmTable.accessDate+numDays
+                                                                        )
+                                                                    )
 
 
 ## SQL Queries
