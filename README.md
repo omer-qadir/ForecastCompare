@@ -22,3 +22,4 @@ These predictions are compared against a local weather observation tower. The da
  - Move raw data display into its own html page
  - Why does Voll tower give so many -99999 values
  - Get key free access to OWM. Currently it must use an appid for a free user, but OWM website states that open-source applications can get key-free access
+ - automate table generation in the html. Currently column names are hardwired... instead get names from tables
