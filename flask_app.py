@@ -1,21 +1,22 @@
-
 # (from https://blog.pythonanywhere.com/121/)
 # A very simple Flask Hello World app for you to get started with...
 
 from flask import Flask, redirect, render_template, request, url_for
-#from flask.ext.sqlalchemy import SQLAlchemy
-from flask_sqlalchemy  import SQLAlchemy
+# from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username="omer",
-    password="forecast123",
-    hostname="omer.mysql.pythonanywhere-services.com",
-    databasename="omer$default",
+SQLALCHEMY_DATABASE_URI = (
+    "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+        username="omer",
+        password="forecast123",
+        hostname="omer.mysql.pythonanywhere-services.com",
+        databasename="omer$default",
+    )
 )
-#SQLALCHEMY_DATABASE_URI = "sqlite:////home/omer/WeatherForecast.db"
+# SQLALCHEMY_DATABASE_URI = "sqlite:////home/omer/WeatherForecast.db"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 # connection timeouts: Opening a connection from your website code to a MySQL server takes a small amount of time.
@@ -34,41 +35,45 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 
 db = SQLAlchemy(app)
 
-#class Comment(db.Model):
+# class Comment(db.Model):
 #
 #    __tablename__ = "comments"
 #
 #    id = db.Column(db.Integer, primary_key=True)
 #    content = db.Column(db.String(4096))
 
-#@app.route('/')
-#def hello_world():
+# @app.route('/')
+# def hello_world():
 #    return 'Hello from Flask!'
 
-#@app.route('/')
-#def index():
+# @app.route('/')
+# def index():
 #    return render_template("main_page.html")
 
-#@app.route("/", methods=["GET", "POST"])
+
+# @app.route("/", methods=["GET", "POST"])
 @app.route("/")
 def index():
-    from forecastSrc.forecast_db_interface import BbcTable, OwmTable, YrTable, VollTable, forecast_db_interface
+    from forecastSrc.forecast_db_interface import (BbcTable, OwmTable,
+                                                   VollTable, YrTable,
+                                                   forecast_db_interface)
+
     if request.method == "GET":
         dbInterface = forecast_db_interface()
-        renderedRetunVal = render_template  (
-                                    "main_page.html"
-                                    ,bbcData=BbcTable.query.all()
-                                    ,owmData=OwmTable.query.all()
-                                    ,yrData=YrTable.query.all()
-                                    ,vollData=VollTable.query.all()
-                                    ,day1Table=dbInterface.dayAwayTable()
-                                    ,day2Table=dbInterface.dayAwayTable(numDays=2)
-                                )
+        renderedRetunVal = render_template(
+            "main_page.html",
+            bbcData=BbcTable.query.all(),
+            owmData=OwmTable.query.all(),
+            yrData=YrTable.query.all(),
+            vollData=VollTable.query.all(),
+            day1Table=dbInterface.dayAwayTable(),
+            day2Table=dbInterface.dayAwayTable(numDays=2),
+        )
         ##dbInterface.close()
         return renderedRetunVal
 
-    #comments.append(request.form["contents"])
-    #comment = Comment(content=request.form["contents"])
-    #db.session.add(comment)
-    #db.session.commit()
-    return redirect(url_for('index'))
+    # comments.append(request.form["contents"])
+    # comment = Comment(content=request.form["contents"])
+    # db.session.add(comment)
+    # db.session.commit()
+    return redirect(url_for("index"))
