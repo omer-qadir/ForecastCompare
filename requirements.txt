@@ -1,2 +1,2 @@
-SQLAlchemy == 1.0.14
-pysimplesoap == 1.16
+SQLAlchemy >= 2.0.20
+pysimplesoap >= 1.16.2
